@@ -2,14 +2,17 @@ package com.web.tp.critique.tp2famcvc.controller;
 
 import com.web.tp.critique.tp2famcvc.model.Critique;
 import com.web.tp.critique.tp2famcvc.repository.CritiqueRepository;
+import com.web.tp.critique.tp2famcvc.validation.CritiqueValidateur;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -20,6 +23,9 @@ public class CritiqueController implements CommandLineRunner {
 
     @Autowired
     private CritiqueRepository critiqueRepository;
+
+    @Autowired
+    CritiqueValidateur critiqueValidateur;
 
     @Override
     public void run(String... args) throws Exception {
@@ -272,6 +278,13 @@ public class CritiqueController implements CommandLineRunner {
             critiqueRepository.save(critique19);
             logger.info("*** La critique 19 a été ajoutée à la BD ***");
         }
+    }
+
+    @GetMapping(value = "/critiques", produces = {"application/json"})
+    public Collection<Critique> listAllCritiques() {
+        logger.info("********** Appel de listAllCritiques **********");
+        //Thread.sleep(0);
+        return (Collection<Critique>) critiqueRepository.findAll();
     }
 
 }
