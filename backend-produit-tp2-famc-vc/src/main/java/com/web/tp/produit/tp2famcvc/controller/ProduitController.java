@@ -1,17 +1,21 @@
 package com.web.tp.produit.tp2famcvc.controller;
 
+import com.web.tp.produit.tp2famcvc.exception.ProduitInformationInvalidException;
+import com.web.tp.produit.tp2famcvc.exception.ProduitNonTrouveException;
 import com.web.tp.produit.tp2famcvc.model.EnumSousCategorie;
 import com.web.tp.produit.tp2famcvc.model.Produit;
 import com.web.tp.produit.tp2famcvc.repository.ProduitRepository;
+import com.web.tp.produit.tp2famcvc.verification.ProduitValidateur;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Collection;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -21,6 +25,12 @@ public class ProduitController implements CommandLineRunner {
     private ProduitRepository produitRepository;
 
     private Logger logger = LoggerFactory.getLogger(ProduitController.class);
+
+    @GetMapping(value = "/produits", produces = {"application/json"})
+    Collection<Produit> listAllProduits(){
+        logger.info("****Obtention de la liste de produits");
+        return (Collection<Produit>) produitRepository.findAll();
+    }
 
     @Override
     public void run(String... args) throws Exception {
