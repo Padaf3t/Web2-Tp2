@@ -9,19 +9,19 @@ public class CritiqueValidateur {
     public String validateCritique(Critique critique) {
         String message = "";
 
-        if (validateNote(critique.getAppreciation())) {
+        if (!validateNote(critique.getAppreciation())) {
             message += "La note d'appréciation doit être entre 0 et 100. ";
         }
-        if (validateNote(critique.getQualiteSonore())) {
+        if (!validateNote(critique.getQualiteSonore())) {
             message += "La note de qualité sonore doit être entre 0 et 100. ";
         }
-        if (validateNote(critique.getQualiteVisuelle())) {
+        if (!validateNote(critique.getQualiteVisuelle())) {
             message += "La note de qualité visuelle doit être entre 0 et 100. ";
         }
-        if (validateDate(critique.getDate())) {
+        if (!validateDate(critique.getDate())) {
             message += "La date ne doit pas être nulle et elle doit être entre le 1er janvier 1970 et la date actuelle. ";
         }
-        if (validateEIDR(critique.getEIDR())) {
+        if (!validateEIDR(critique.getEidr())) {
             message += "L'EIDR doit être un nombre positif";
         }
 
