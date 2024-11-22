@@ -55,6 +55,29 @@ public class ProduitController implements CommandLineRunner {
         return EIDR;
     }
 
+    @PutMapping("/produits/put/{EIDR}")
+    Produit updateProduit(@RequestBody Produit newProduit, @PathVariable int EIDR) throws ProduitInformationInvalidException {
+
+        logger.info("****Updater un produit " + EIDR);
+        Produit retProduit = null;
+        String message = produitValidateur.validateProduit(newProduit);
+        if (message.equals("")) {
+            retProduit = produitRepository.findFirstByEIDR(EIDR);
+            retProduit.setDateSortie(newProduit.getDateSortie());
+            retProduit.setRealisateur(newProduit.getRealisateur());
+            retProduit.setGenre(newProduit.getGenre());
+            retProduit.setDureeMinute(newProduit.getDureeMinute());
+            retProduit.setPaysOrigine(newProduit.getPaysOrigine());
+            retProduit.setAfficheSrc(newProduit.getAfficheSrc());
+            produitRepository.save(retProduit);
+        }
+        else{
+            throw new ProduitInformationInvalidException(message);
+        }
+
+        return retProduit;
+    }
+
     @Override
     public void run(String... args) throws Exception {
 
