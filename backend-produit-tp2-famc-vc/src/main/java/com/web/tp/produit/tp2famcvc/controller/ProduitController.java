@@ -32,6 +32,12 @@ public class ProduitController implements CommandLineRunner {
         return (Collection<Produit>) produitRepository.findAll();
     }
 
+    @GetMapping(value = "/produits/{EIDR}", produces = {"application/json"})
+    Produit getProduit(@PathVariable int EIDR){
+        logger.info("****Obtention du produit " + EIDR);
+        return produitRepository.findFirstByEIDR(EIDR);
+    }
+
     @Override
     public void run(String... args) throws Exception {
 
