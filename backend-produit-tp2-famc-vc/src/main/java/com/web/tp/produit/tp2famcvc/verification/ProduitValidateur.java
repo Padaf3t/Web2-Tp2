@@ -2,6 +2,8 @@ package com.web.tp.produit.tp2famcvc.verification;
 
 import com.web.tp.produit.tp2famcvc.model.Produit;
 
+import java.time.LocalDate;
+
 public class ProduitValidateur {
 
     public String validateProduit(Produit produit) {
@@ -19,6 +21,9 @@ public class ProduitValidateur {
             }
             if(!validerNombrePositif(produit.getEidr(), produit.getDureeMinute())){
                 messageErreur += "Champs doivent être positif";
+            }
+            if(!validateDate(produit.getDateSortie())){
+                messageErreur += "Date doit être aujourd'hui ou dans le passé";
             }
         }
 
@@ -51,6 +56,11 @@ public class ProduitValidateur {
             }
         }
         return true;
+    }
+
+    private boolean validateDate(LocalDate date) {
+        LocalDate today = LocalDate.now();
+        return date != null && (date.isEqual(today) || date.isBefore(today));
     }
 
 
