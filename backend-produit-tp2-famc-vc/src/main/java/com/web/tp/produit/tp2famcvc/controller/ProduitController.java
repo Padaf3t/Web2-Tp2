@@ -24,6 +24,9 @@ public class ProduitController implements CommandLineRunner {
     @Autowired
     private ProduitRepository produitRepository;
 
+    @Autowired
+    private ProduitValidateur produitValidateur;
+
     private Logger logger = LoggerFactory.getLogger(ProduitController.class);
 
     @GetMapping(value = "/produits", produces = {"application/json"})
@@ -36,6 +39,20 @@ public class ProduitController implements CommandLineRunner {
     Produit getProduit(@PathVariable int EIDR){
         logger.info("****Obtention du produit " + EIDR);
         return produitRepository.findFirstByEIDR(EIDR);
+    }
+
+    @PostMapping("/produits/post")
+    int ajouteProduits(@RequestBody Produit produit) throws ProduitInformationInvalidException {
+        logger.info("****Ajouter un produit " + produit);
+        int EIDR = -1;
+        String message = produitValidateur.validateProduit(produit);
+        if (message.equals("")) {
+            EIDR = produitRepository.save(produit).getEIDR();
+            logger.info("**le nouvel EIDR est : " + EIDR);
+        } else {
+            throw new ProduitInformationInvalidException(message);
+        }
+        return EIDR;
     }
 
     @Override
