@@ -10,10 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -38,7 +38,13 @@ public class ProduitController implements CommandLineRunner {
     @GetMapping(value = "/produits/{EIDR}", produces = {"application/json"})
     Produit getProduit(@PathVariable int EIDR){
         logger.info("****Obtention du produit " + EIDR);
-        return produitRepository.findFirstByEIDR(EIDR);
+        return produitRepository.findFirstByEidr(EIDR);
+    }
+
+    @GetMapping(value = "/produits/souscategorie", produces = {"application/json"})
+    Collection<EnumSousCategorie> listAllSousCategories(){
+        logger.info("****Obtention des sous categories");
+        return Arrays.asList(EnumSousCategorie.values());
     }
 
     @PostMapping("/produits/post")
@@ -47,7 +53,7 @@ public class ProduitController implements CommandLineRunner {
         int EIDR = -1;
         String message = produitValidateur.validateProduit(produit);
         if (message.equals("")) {
-            EIDR = produitRepository.save(produit).getEIDR();
+            EIDR = produitRepository.save(produit).getEidr();
             logger.info("**le nouvel EIDR est : " + EIDR);
         } else {
             throw new ProduitInformationInvalidException(message);
@@ -62,7 +68,7 @@ public class ProduitController implements CommandLineRunner {
         Produit retProduit = null;
         String message = produitValidateur.validateProduit(newProduit);
         if (message.equals("")) {
-            retProduit = produitRepository.findFirstByEIDR(EIDR);
+            retProduit = produitRepository.findFirstByEidr(EIDR);
             retProduit.setDateSortie(newProduit.getDateSortie());
             retProduit.setRealisateur(newProduit.getRealisateur());
             retProduit.setGenre(newProduit.getGenre());
@@ -81,7 +87,7 @@ public class ProduitController implements CommandLineRunner {
     @DeleteMapping("/produits/delete/{EIDR}")
     void deleteProduit(@PathVariable int EIDR) throws ProduitNonTrouveException {
         logger.info("**** Suppression d'un produit " + EIDR);
-        Produit produit = produitRepository.findFirstByEIDR(EIDR);
+        Produit produit = produitRepository.findFirstByEidr(EIDR);
         if(produit != null){
             produitRepository.deleteById(produit.getId());
         }
@@ -96,9 +102,9 @@ public class ProduitController implements CommandLineRunner {
 
         logger.info("*******Démarage de la Backend Produit********");
 
-        if(produitRepository.findFirstByEIDR(1) == null){
+        if(produitRepository.findFirstByEidr(1) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(1)
+                    .eidr(1)
                     .nom("Mean Girls")
                     .dateSortie(new Date(2004, Calendar.APRIL,30))
                     .realisateur("Mark Waters")
@@ -109,9 +115,9 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 1 à été réinitialisé en BD***");
         }
-        if(produitRepository.findFirstByEIDR(2) == null){
+        if(produitRepository.findFirstByEidr(2) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(2)
+                    .eidr(2)
                     .nom("The secret life of Walter Mitty")
                     .dateSortie(new Date(2013, Calendar.DECEMBER,25))
                     .realisateur("Ben Stiller")
@@ -122,9 +128,9 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 2 à été réinitialisé en BD***");
         }
-        if(produitRepository.findFirstByEIDR(3) == null){
+        if(produitRepository.findFirstByEidr(3) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(3)
+                    .eidr(3)
                     .nom("Requiem for a dream")
                     .dateSortie(new Date(2000, Calendar.NOVEMBER,3))
                     .realisateur("Darren Aronofsky")
@@ -135,9 +141,9 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 3 à été réinitialisé en BD***");
         }
-        if(produitRepository.findFirstByEIDR(4) == null){
+        if(produitRepository.findFirstByEidr(4) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(4)
+                    .eidr(4)
                     .nom("Eurovision Song Contest: The Story of Fire Saga")
                     .dateSortie(new Date(2020, Calendar.JUNE,26))
                     .realisateur("David Dobkin")
@@ -148,9 +154,9 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 4 à été réinitialisé en BD***");
         }
-        if(produitRepository.findFirstByEIDR(5) == null){
+        if(produitRepository.findFirstByEidr(5) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(5)
+                    .eidr(5)
                     .nom("Das Cabinet des Dr. Caligari")
                     .dateSortie(new Date(1920, Calendar.FEBRUARY,26))
                     .realisateur("Robert Wiene")
@@ -161,9 +167,9 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 5 à été réinitialisé en BD***");
         }
-        if(produitRepository.findFirstByEIDR(6) == null){
+        if(produitRepository.findFirstByEidr(6) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(6)
+                    .eidr(6)
                     .nom("Bronenossets «Potiomkine»")
                     .dateSortie(new Date(1925, Calendar.DECEMBER,21))
                     .realisateur("Sergueï Eisenstein")
@@ -174,9 +180,9 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 6 à été réinitialisé en BD***");
         }
-        if(produitRepository.findFirstByEIDR(7) == null){
+        if(produitRepository.findFirstByEidr(7) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(7)
+                    .eidr(7)
                     .nom("Le Fabuleux Destin d'Amélie Poulain")
                     .dateSortie(new Date(2001, Calendar.APRIL,25))
                     .realisateur("Jean-Pierre Jeunet")
@@ -187,9 +193,9 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 7 à été réinitialisé en BD***");
         }
-        if(produitRepository.findFirstByEIDR(8) == null){
+        if(produitRepository.findFirstByEidr(8) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(8)
+                    .eidr(8)
                     .nom("La vita è bella")
                     .dateSortie(new Date(1997, Calendar.DECEMBER,13))
                     .realisateur("Roberto Benigni")
@@ -201,9 +207,9 @@ public class ProduitController implements CommandLineRunner {
             logger.info("****Le film 8 à été réinitialisé en BD***");
 
         }
-        if(produitRepository.findFirstByEIDR(9) == null){
+        if(produitRepository.findFirstByEidr(9) == null){
             produitRepository.save(Produit.builder()
-                    .EIDR(9)
+                    .eidr(9)
                     .nom("Get Out")
                     .dateSortie(new Date(2017, Calendar.FEBRUARY,24))
                     .realisateur("Jordan Peele")

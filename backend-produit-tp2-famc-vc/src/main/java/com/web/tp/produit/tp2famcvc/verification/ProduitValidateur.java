@@ -17,7 +17,7 @@ public class ProduitValidateur {
             if(!validerLongueurMaxString(256, produit.getNom(),produit.getRealisateur(),produit.getPaysOrigine(),produit.getAfficheSrc())){
                 messageErreur += "Champs trop long";
             }
-            if(!validerNombrePositif(produit.getEIDR(), produit.getDureeMinute())){
+            if(!validerNombrePositif(produit.getEidr(), produit.getDureeMinute())){
                 messageErreur += "Champs doivent être positif";
             }
         }

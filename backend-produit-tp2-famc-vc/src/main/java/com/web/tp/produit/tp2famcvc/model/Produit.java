@@ -21,7 +21,7 @@ public class Produit {
 
     @Column(unique = true)
     @EqualsAndHashCode.Include
-    private int EIDR;
+    private int eidr;
 
     @Column(unique = true)
     @EqualsAndHashCode.Include
