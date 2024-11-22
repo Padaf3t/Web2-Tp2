@@ -1,0 +1,12 @@
+.critiqueDiv{
+    padding: 30px 20px 30px 20px;
+}
+
+.nomProduit{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.titreCritique{
+    margin-bottom: 35px;
+}

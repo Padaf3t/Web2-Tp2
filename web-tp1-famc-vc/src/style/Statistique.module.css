@@ -1,0 +1,66 @@
+.statDiv {
+    padding: 30px;
+}
+
+.statDiv img {
+    margin-bottom: 20px;
+}
+
+.noteMoyenne {
+    background-color: #6ECEF0;
+    border-radius: 10px;
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    border: black 3px solid;
+    padding: 10px 5px 10px 5px;
+    position: absolute;
+    bottom: -10px;
+    right: -20px;
+}
+
+.divMedian{
+    display: inline-block;
+    background-color:#967B9B;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 20px;
+    border: 3px solid black;
+    width: 80%;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.divExterne{
+    display: inline-block;
+    background-color:#FFE1B9;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 20px;
+    border: 3px solid black;
+    width: 70%;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.divCategorie{
+    display: inline-block;
+    background-color: #B1F06E;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 20px;
+    border: 3px solid black;
+    width: 70%;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.soustitre{
+    font-weight: bold;
+}

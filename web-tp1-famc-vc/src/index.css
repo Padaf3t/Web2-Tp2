@@ -1,0 +1,88 @@
+body {
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Comic Sans MS", serif;
+  background-color: #DE6EF0;
+  font-size: 16px;
+}
+
+#root{
+  width: 100%;
+}
+
+h1 {
+  font-size: 5em;
+  line-height: 1.1;
+  color: #B1F06E;
+  font-family: Impact, serif;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
+  margin-bottom: 25px;
+}
+
+button {
+  border-radius: 8px;
+  border: 3px solid black;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #B1F06E;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #967B9B;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.sectionDiv {
+  margin-bottom: 100px;
+}
+
+.elementDiv {
+  background-color: #FFE1B9;
+  position: relative;
+  border-radius: 20px;
+  margin: 20px;
+  border: 3px solid black;
+  width: 250px;
+  display: block;
+}
+
+.elementDiv button:first-of-type {
+  position: absolute;
+  top: -10px;
+  left: -20px;
+}
+
+.elementDiv img {
+  border-radius: 10px;
+  border:3px solid black;
+  width:125px;
+  height:125px;
+}
+
+.contenuSectionDiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+
+
+/*.paletteCouleurs {*/
+/*  background-color: #DE6EF0;*/
+/*  background-color: #967B9B;*/
+/*  background-color: #B1F06E;*/
+/*  background-color: #FFE1B9;*/
+/*  background-color: #6ECEF0;*/
+/*}*/

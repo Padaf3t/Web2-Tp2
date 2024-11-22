@@ -1,0 +1,39 @@
+.formulaireDiv{
+    background-color: #6ECEF0;
+    max-width: 100%;
+    width: 600px;
+    min-width: min-content;
+    display:inline-block;
+    align-items: center;
+    border-radius: 20px;
+    border: black 3px solid;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.formulaireDiv select, .formulaireDiv input, .formulaireDiv button {
+    width: 60%;
+}
+
+.titreFormulaire{
+    color: #B1F06E;
+    font-family: Impact, serif;
+    font-size: 3em;
+    line-height: 1.1;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
+.formulaireDiv button{
+    margin-top: 20px;
+}
+
+.formulaireDiv input, .formulaireDiv select{
+    border-radius: 5px;
+    border: black 2px solid;
+}
+
+.inputGrise{
+    background-color: #F0F0F0;
+    opacity: 50%
+}

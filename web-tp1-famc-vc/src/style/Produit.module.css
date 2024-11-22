@@ -1,0 +1,13 @@
+.produitDiv {
+    padding: 40px 15px 40px 15px;
+}
+
+.produitDiv button:last-of-type {
+    position: absolute;
+    bottom: -10px;
+    right: -20px;
+}
+
+.nomProduit {
+    font-weight: bold;
+}
