@@ -2,6 +2,7 @@ package com.web.tp.critique.tp2famcvc.validation;
 
 import com.web.tp.critique.tp2famcvc.model.Critique;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CritiqueValidateur {
@@ -21,25 +22,23 @@ public class CritiqueValidateur {
         if (!validateDate(critique.getDate())) {
             message += "La date ne doit pas être nulle et elle doit être entre le 1er janvier 1970 et la date actuelle. ";
         }
-        if (!validateEIDR(critique.getEidr())) {
+        if (!validateEidr(critique.getEidr())) {
             message += "L'EIDR doit être un nombre positif";
         }
 
         return message;
     }
 
-    public boolean validateNote(int note) {
+    private boolean validateNote(int note) {
         return note >= 0 && note <= 100;
     }
 
-    public boolean validateDate(Date date) {
-        long epochTime = 0L;
-        long currentTime = System.currentTimeMillis();
-
-        return date != null && (date.getTime() >= epochTime || date.getTime() <= currentTime);
+    private boolean validateDate(LocalDate date) {
+        LocalDate today = LocalDate.now();
+        return date != null && (date.isEqual(today) || date.isBefore(today));
     }
 
-    public boolean validateEIDR(int EIDR) {
-        return EIDR >= 0;
+    private boolean validateEidr(int eidr) {
+        return eidr >= 0;
     }
 }
