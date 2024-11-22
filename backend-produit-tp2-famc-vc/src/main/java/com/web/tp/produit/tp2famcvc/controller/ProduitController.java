@@ -78,6 +78,19 @@ public class ProduitController implements CommandLineRunner {
         return retProduit;
     }
 
+    @DeleteMapping("/produits/delete/{EIDR}")
+    void deleteProduit(@PathVariable int EIDR) throws ProduitNonTrouveException {
+        logger.info("**** Suppression d'un produit " + EIDR);
+        Produit produit = produitRepository.findFirstByEIDR(EIDR);
+        if(produit != null){
+            produitRepository.deleteById(produit.getId());
+        }
+        else{
+            logger.warn("l'EIDR' demandé n'existe pas");
+            throw new ProduitNonTrouveException("Produit n'existe pas");
+        }
+    }
+
     @Override
     public void run(String... args) throws Exception {
 
