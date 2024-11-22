@@ -13,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
@@ -106,7 +107,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(1)
                     .nom("Mean Girls")
-                    .dateSortie(new Date(2004, Calendar.APRIL,30))
+                    .dateSortie(LocalDate.of(2004, Calendar.APRIL,30))
                     .realisateur("Mark Waters")
                     .genre(EnumSousCategorie.COMEDIE)
                     .dureeMinute(97)
@@ -119,7 +120,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(2)
                     .nom("The secret life of Walter Mitty")
-                    .dateSortie(new Date(2013, Calendar.DECEMBER,25))
+                    .dateSortie(LocalDate.of(2013, Calendar.DECEMBER,25))
                     .realisateur("Ben Stiller")
                     .genre(EnumSousCategorie.AVENTURE)
                     .dureeMinute(114)
@@ -132,7 +133,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(3)
                     .nom("Requiem for a dream")
-                    .dateSortie(new Date(2000, Calendar.NOVEMBER,3))
+                    .dateSortie(LocalDate.of(2000, Calendar.NOVEMBER,3))
                     .realisateur("Darren Aronofsky")
                     .genre(EnumSousCategorie.DRAME)
                     .dureeMinute(102)
@@ -145,7 +146,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(4)
                     .nom("Eurovision Song Contest: The Story of Fire Saga")
-                    .dateSortie(new Date(2020, Calendar.JUNE,26))
+                    .dateSortie(LocalDate.of(2020, Calendar.JUNE,26))
                     .realisateur("David Dobkin")
                     .genre(EnumSousCategorie.COMEDIE)
                     .dureeMinute(123)
@@ -158,7 +159,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(5)
                     .nom("Das Cabinet des Dr. Caligari")
-                    .dateSortie(new Date(1920, Calendar.FEBRUARY,26))
+                    .dateSortie(LocalDate.of(1920, Calendar.FEBRUARY,26))
                     .realisateur("Robert Wiene")
                     .genre(EnumSousCategorie.HORREUR)
                     .dureeMinute(67)
@@ -171,7 +172,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(6)
                     .nom("Bronenossets «Potiomkine»")
-                    .dateSortie(new Date(1925, Calendar.DECEMBER,21))
+                    .dateSortie(LocalDate.of(1925, Calendar.DECEMBER,21))
                     .realisateur("Sergueï Eisenstein")
                     .genre(EnumSousCategorie.GUERRE)
                     .dureeMinute(74)
@@ -184,7 +185,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(7)
                     .nom("Le Fabuleux Destin d'Amélie Poulain")
-                    .dateSortie(new Date(2001, Calendar.APRIL,25))
+                    .dateSortie(LocalDate.of(2001, Calendar.APRIL,25))
                     .realisateur("Jean-Pierre Jeunet")
                     .genre(EnumSousCategorie.COMEDIE)
                     .dureeMinute(122)
@@ -197,7 +198,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(8)
                     .nom("La vita è bella")
-                    .dateSortie(new Date(1997, Calendar.DECEMBER,13))
+                    .dateSortie(LocalDate.of(1997, Calendar.DECEMBER,13))
                     .realisateur("Roberto Benigni")
                     .genre(EnumSousCategorie.DRAME)
                     .dureeMinute(116)
@@ -211,7 +212,7 @@ public class ProduitController implements CommandLineRunner {
             produitRepository.save(Produit.builder()
                     .eidr(9)
                     .nom("Get Out")
-                    .dateSortie(new Date(2017, Calendar.FEBRUARY,24))
+                    .dateSortie(LocalDate.of(2017, Calendar.FEBRUARY,24))
                     .realisateur("Jordan Peele")
                     .genre(EnumSousCategorie.HORREUR)
                     .dureeMinute(104)

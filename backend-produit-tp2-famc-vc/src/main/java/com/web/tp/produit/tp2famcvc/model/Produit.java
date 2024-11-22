@@ -3,7 +3,7 @@ package com.web.tp.produit.tp2famcvc.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -27,7 +27,7 @@ public class Produit {
     @EqualsAndHashCode.Include
     private String nom;
 
-    private Date dateSortie;
+    private LocalDate dateSortie;
     private String realisateur;
 
     @Enumerated(EnumType.STRING)
