@@ -23,7 +23,7 @@ public class Critique {
     @EqualsAndHashCode.Include
     private long id;
     private Date date;
-    private int EIDR;
+    private int eidr;
     private int qualiteVisuelle;
     private int qualiteSonore;
     private int appreciation;

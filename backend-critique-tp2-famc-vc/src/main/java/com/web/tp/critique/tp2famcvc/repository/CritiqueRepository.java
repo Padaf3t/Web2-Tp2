@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Date;
 
 public interface CritiqueRepository extends CrudRepository<Critique, Long> {
-    Critique findFirstByEIDRAndDate(int EIDR, Date date);
+    Critique findFirstByEidrAndDate(int eidr, Date date);
 }
