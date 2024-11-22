@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -31,10 +33,10 @@ public class CritiqueController implements CommandLineRunner {
 
         logger.info("********** Ajout des critiques à la BD **********");
 
-        if (critiqueRepository.findFirstByEidrAndDate(1, new Date(2001, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(1, LocalDate.of(2001, 1, 1)) == null) {
             Critique critique1 = Critique
                     .builder()
-                    .date(new Date(2001, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2001, 1, 1))
                     .eidr(1)
                     .qualiteVisuelle(90)
                     .qualiteSonore(88)
@@ -44,10 +46,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 1 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(1, new Date(2001, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(1, LocalDate.of(2001, 1, 2)) == null) {
             Critique critique2 = Critique
                     .builder()
-                    .date(new Date(2001, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2001, 1, 2))
                     .eidr(1)
                     .qualiteVisuelle(95)
                     .qualiteSonore(95)
@@ -57,10 +59,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 2 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(2, new Date(2002, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(2, LocalDate.of(2002, 1, 1)) == null) {
             Critique critique3 = Critique
                     .builder()
-                    .date(new Date(2002, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2002, 1, 1))
                     .eidr(2)
                     .qualiteVisuelle(80)
                     .qualiteSonore(85)
@@ -70,10 +72,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 3 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(2, new Date(2002, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(2, LocalDate.of(2002, 1, 2)) == null) {
             Critique critique4 = Critique
                     .builder()
-                    .date(new Date(2002, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2002, 1, 2))
                     .eidr(2)
                     .qualiteVisuelle(95)
                     .qualiteSonore(95)
@@ -83,10 +85,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 4 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(3, new Date(2003, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(3, LocalDate.of(2003, 1, 1)) == null) {
             Critique critique5 = Critique
                     .builder()
-                    .date(new Date(2003, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2003, 1, 1))
                     .eidr(3)
                     .qualiteVisuelle(30)
                     .qualiteSonore(90)
@@ -96,10 +98,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 5 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(3, new Date(2003, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(3, LocalDate.of(2003, 1, 2)) == null) {
             Critique critique6 = Critique
                     .builder()
-                    .date(new Date(2003, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2003, 1, 2))
                     .eidr(3)
                     .qualiteVisuelle(100)
                     .qualiteSonore(50)
@@ -109,10 +111,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 6 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(4, new Date(2004, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(4, LocalDate.of(2004, 1, 1)) == null) {
             Critique critique7 = Critique
                     .builder()
-                    .date(new Date(2004, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2004, 1, 1))
                     .eidr(4)
                     .qualiteVisuelle(75)
                     .qualiteSonore(70)
@@ -122,10 +124,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 7 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(4, new Date(2004, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(4, LocalDate.of(2004, 1, 2)) == null) {
             Critique critique8 = Critique
                     .builder()
-                    .date(new Date(2004, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2004, 1, 2))
                     .eidr(4)
                     .qualiteVisuelle(80)
                     .qualiteSonore(80)
@@ -135,10 +137,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 8 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(5, new Date(2005, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(5, LocalDate.of(2005, 1, 1)) == null) {
             Critique critique9 = Critique
                     .builder()
-                    .date(new Date(2005, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2005, 1, 1))
                     .eidr(5)
                     .qualiteVisuelle(79)
                     .qualiteSonore(79)
@@ -148,10 +150,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 9 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(5, new Date(2005, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(5, LocalDate.of(2005, 1, 2)) == null) {
             Critique critique10 = Critique
                     .builder()
-                    .date(new Date(2005, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2005, 1, 2))
                     .eidr(5)
                     .qualiteVisuelle(80)
                     .qualiteSonore(90)
@@ -161,10 +163,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 10 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(6, new Date(2006, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(6, LocalDate.of(2006, 1, 1)) == null) {
             Critique critique11 = Critique
                     .builder()
-                    .date(new Date(2006, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2006, 1, 1))
                     .eidr(6)
                     .qualiteVisuelle(50)
                     .qualiteSonore(50)
@@ -174,10 +176,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 11 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(6, new Date(2006, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(6, LocalDate.of(2006, 1, 2)) == null) {
             Critique critique12 = Critique
                     .builder()
-                    .date(new Date(2006, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2006, 1, 2))
                     .eidr(6)
                     .qualiteVisuelle(60)
                     .qualiteSonore(56)
@@ -187,10 +189,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 12 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(6, new Date(2006, Calendar.JANUARY, 3)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(6, LocalDate.of(2006, 1, 3)) == null) {
             Critique critique13 = Critique
                     .builder()
-                    .date(new Date(2006, Calendar.JANUARY, 3))
+                    .date(LocalDate.of(2006, 1, 3))
                     .eidr(6)
                     .qualiteVisuelle(100)
                     .qualiteSonore(90)
@@ -200,10 +202,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 13 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(7, new Date(2007, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(7, LocalDate.of(2007, 1, 1)) == null) {
             Critique critique14 = Critique
                     .builder()
-                    .date(new Date(2007, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2007, 1, 1))
                     .eidr(7)
                     .qualiteVisuelle(60)
                     .qualiteSonore(50)
@@ -213,10 +215,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 14 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(7, new Date(2007, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(7, LocalDate.of(2007, 1, 2)) == null) {
             Critique critique15 = Critique
                     .builder()
-                    .date(new Date(2007, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2007, 1, 2))
                     .eidr(7)
                     .qualiteVisuelle(83)
                     .qualiteSonore(83)
@@ -226,10 +228,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 15 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(8, new Date(2008, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(8, LocalDate.of(2008, 1, 1)) == null) {
             Critique critique16 = Critique
                     .builder()
-                    .date(new Date(2008, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2008, 1, 1))
                     .eidr(8)
                     .qualiteVisuelle(80)
                     .qualiteSonore(84)
@@ -239,10 +241,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 16 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(8, new Date(2008, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(8, LocalDate.of(2008, 1, 2)) == null) {
             Critique critique17 = Critique
                     .builder()
-                    .date(new Date(2008, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2008, 1, 2))
                     .eidr(8)
                     .qualiteVisuelle(89)
                     .qualiteSonore(79)
@@ -252,10 +254,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 17 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(9, new Date(2009, Calendar.JANUARY, 1)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(9, LocalDate.of(2009, 1, 1)) == null) {
             Critique critique18 = Critique
                     .builder()
-                    .date(new Date(2009, Calendar.JANUARY, 1))
+                    .date(LocalDate.of(2009, 1, 1))
                     .eidr(9)
                     .qualiteVisuelle(82)
                     .qualiteSonore(80)
@@ -265,10 +267,10 @@ public class CritiqueController implements CommandLineRunner {
             logger.info("*** La critique 18 a été ajoutée à la BD ***");
         }
 
-        if (critiqueRepository.findFirstByEidrAndDate(9, new Date(2009, Calendar.JANUARY, 2)) == null) {
+        if (critiqueRepository.findFirstByEidrAndDate(9, LocalDate.of(2009, 1, 2)) == null) {
             Critique critique19 = Critique
                     .builder()
-                    .date(new Date(2009, Calendar.JANUARY, 2))
+                    .date(LocalDate.of(2009, 1, 2))
                     .eidr(9)
                     .qualiteVisuelle(81)
                     .qualiteSonore(79)
@@ -288,7 +290,7 @@ public class CritiqueController implements CommandLineRunner {
 
     @PostMapping("critique/post")
     public void ajouteCritique(@RequestBody Critique critique) {
-        logger.info("********** Appel de ajouteCritique **********" + critique.getEidr());
+        logger.info("********** Appel de ajouteCritique **********");
         String message = critiqueValidateur.validateCritique(critique);
         if (message.equals("")) {
             long id = critiqueRepository.save(critique).getId();
@@ -297,6 +299,14 @@ public class CritiqueController implements CommandLineRunner {
         else {
             throw new CritiqueInformationInvalidException(message);
         }
+    }
+
+    @DeleteMapping("/critique/delete/{eidr}")
+    void deleteCritiqueByEidr(@PathVariable int eidr) {
+        logger.info("********** Appel de deleteCritiqueByEidr **********");
+
+        List<Critique> critiquesAvecCeEidr = critiqueRepository.findAllByEidr(eidr);
+        critiqueRepository.deleteAll(critiquesAvecCeEidr);
     }
 
 }
