@@ -13,7 +13,7 @@ import {retirerCritiquesParEidr} from "./fonctionnaliteCritique.js";
  * @param {function} setValeurFormulaire - Fonction pour mettre à jour les valeurs du formulaire.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur, triggerRefetch) {
+export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur, triggerRefetch,handleBoutonAfficherForm) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -23,7 +23,7 @@ export async function sauvegarderProduit(event, setListeProduits, listeProduits,
         return;
     }
 
-    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit, triggerRefetch)) {
+    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit, triggerRefetch, handleBoutonAfficherForm)) {
         return;
     }
 
@@ -101,7 +101,7 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur) {
  * @param {Object} nouveauProduit - Le nouveau produit à ajouter ou à modifier.
  * @returns {boolean} True si l'opération s'est déroulée avec succès, false sinon.
  */
-async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit,triggerProduitRefetch) {
+async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit,triggerProduitRefetch,handleBoutonAfficherForm) {
     if (!enModification) {
         if (validerNumeroEIDR(listeProduits, nouveauProduit.eidr)) {
             try{
@@ -109,6 +109,7 @@ async function ModifierListeProduit(enModification, setEnModification, listeProd
                 nouveauProduit.id = nouvelId;
                 setListeProduits((ancienneListe) => [nouveauProduit, ...ancienneListe]);
                 triggerProduitRefetch();
+                handleBoutonAfficherForm();
             } catch (e) {
                 console.log(e + 'le nouveau produit n\'a pas pu être ajouté');
                 //setError({error: "error", message: e.message});

@@ -139,13 +139,15 @@ function App() {
                                   fonctionnaliteCritique={fonctionnaliteCritique}
                                   fonctionnaliteProduit={fonctionnaliteProduit}
                                   triggerProduitRefetch={handleProduitRefetch}
-                                  triggerCritiqueRefetch={handleCritiqueRefetch}/>
+                                  triggerCritiqueRefetch={handleCritiqueRefetch}
+                                  handleBoutonAfficherForm={handleBoutonAfficherForm}/>
             <GestionnaireCritiques ref={gestionnaireCritiquesRef}
                                    listeProduits={listeProduits}
                                    setListeCritiques={setListeCritiques}
                                    lorsquePret={gestionnaireEstPret}
                                    fonctionnaliteCritique={fonctionnaliteCritique}
-                                   triggerCritiqueRefetch={handleCritiqueRefetch}/>
+                                   triggerCritiqueRefetch={handleCritiqueRefetch}
+                                   handleBoutonAfficherForm={handleBoutonAfficherForm}/>
             <GestionnaireStatistiques ref={gestionnaireStatistiquesRef}
                                       listeProduits={listeProduits}
                                       listeCritiques={listeCritiques}

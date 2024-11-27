@@ -8,7 +8,7 @@ import {addCritique, deleteCritiqueByEidr, deleteCritiqueById} from "./httpCriti
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch) {
+export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch, handleBoutonAfficherForm) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -23,6 +23,7 @@ export async function ajouterNouvelleCritique(event, setListeCritiques, setMessa
         let nouvelleCritique = await addCritique(nouvelleCritiqueInfo);
         setListeCritiques((anciennesCritiques) => [nouvelleCritique, ...anciennesCritiques]);
         triggerCritiqueRefetch();
+        handleBoutonAfficherForm();
         setMessageErreur("");
     }
     catch (e) {
