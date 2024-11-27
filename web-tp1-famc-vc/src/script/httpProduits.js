@@ -46,7 +46,6 @@ export async function modifierProduitBackend(produit) {
 }
 
 export async function deleteProduit(eidr) {
-    console.log(eidr)
     let path = "http://localhost:8888/produits/delete/" + eidr;
     const response = await fetch(path,
         {

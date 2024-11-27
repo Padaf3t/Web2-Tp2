@@ -1,5 +1,6 @@
 import {validerLongueurMaxString, validerNombrePositif, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
 import {ajouteProduits, deleteProduit, modifierProduitBackend} from "./httpProduits.js";
+import {retirerCritiquesParEidr} from "./fonctionnaliteCritique.js";
 
 /**
  * Sauvegarde un nouveau produit ou met à jour un produit existant.
@@ -205,37 +206,16 @@ export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCri
     event.preventDefault();
 
     try{
-        //await suppresiondescritiquedanslabd(eidr);
-        const isDelete = await deleteProduit(eidr);
-        if(isDelete){
-            setListeProduits(old => {
-                return old.filter(p => p.eidr !== eidr)});
-            triggerProduitRefetch();
-
-            // for (let i = 0; i < listeCritiques.length; i++) {
-            //     let critiqueTemp = listeCritiques[i];
-            //     if (critiqueTemp.eidr === eidr) {
-            //         let idCritique = critiqueTemp.id;
-            //         fonctCritiques.retirerCritique(event, idCritique, setListeCritiques)
-            //     }
-            //
-            // }
-        }
+        await fonctCritiques.retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch);
+        await deleteProduit(eidr);
+        setListeProduits(old => {
+            return old.filter(p => p.eidr !== eidr)});
+        triggerProduitRefetch();
     }
     catch(e){
-        console.log(e + 'la nouvelle location n\a pas pu être ajoutée');
+        console.log('le produit n\'a pu être supprimé');
         //setError({error: "error", message: e.message});
     }
-
-    for (let i = 0; i < listeCritiques.length; i++) {
-        let critiqueTemp = listeCritiques[i];
-        if (critiqueTemp.eidr === eidr) {
-            let idCritique = critiqueTemp.id;
-            fonctCritiques.retirerCritique(event, idCritique, setListeCritiques)
-        }
-
-    }
-    //setListeProduits(ancienneListe => ancienneListe.filter(produit => produit.eidr !== eidr));
 }
 
 /**

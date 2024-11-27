@@ -1,5 +1,5 @@
 import {validerNote0A100, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
-import {addCritique, deleteCritiqueById} from "./httpCritiques.js";
+import {addCritique, deleteCritiqueByEidr, deleteCritiqueById} from "./httpCritiques.js";
 
 /**
  * Ajoute une nouvelle critique à la liste.
@@ -99,12 +99,12 @@ export async function retirerCritiquesParEidr(event, eidr, setListeCritiques, tr
     event.preventDefault();
 
     try {
-        await deleteCritiqueById(id);
+        await deleteCritiqueByEidr(eidr);
         setListeCritiques(ancienneListe => ancienneListe.filter(critique => critique.eidr !== eidr));
         triggerCritiqueRefetch();
     }
     catch (e) {
-        console.log("La destruction des critiques avec l'eidr " + id + " n'a pas fonctionné");
+        console.log(e + "La destruction des critiques avec l'eidr " + id + " n'a pas fonctionné");
     }
 }
 
