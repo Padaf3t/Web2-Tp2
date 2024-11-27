@@ -301,7 +301,14 @@ public class CritiqueController implements CommandLineRunner {
         }
     }
 
-    @DeleteMapping("/critique/delete/{eidr}")
+    @DeleteMapping("/critique/deletebyid/{id}")
+    void deleteCritiqueById(@PathVariable long id) {
+        logger.info("********** Appel de deleteCritiqueById **********");
+
+        critiqueRepository.deleteById(id);
+    }
+
+    @DeleteMapping("/critique/deletebyeidr/{eidr}")
     void deleteCritiqueByEidr(@PathVariable int eidr) {
         logger.info("********** Appel de deleteCritiqueByEidr **********");
 
