@@ -7,7 +7,7 @@ import {forwardRef, useImperativeHandle} from "react";
  * @returns {JSX.Element} Le composant rendu.
  */
 const GestionnaireCritiques = forwardRef((props, ref) => {
-    const{listeProduits, setListeCritiques, lorsquePret, fonctionnaliteCritique} = props;
+    const{listeProduits, setListeCritiques, lorsquePret, fonctionnaliteCritique, triggerCritiqueRefetch} = props;
     useImperativeHandle(ref, () => {
         //S'assure que le composant est prêt et force un rerendu si tel est le cas
         if (lorsquePret) {
@@ -20,7 +20,7 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * @param {Function} setMessageErreur - Fonction pour mettre à jour le message d'erreur.
              */
             ajouterCritique: (event, setMessageErreur) => {
-                fonctionnaliteCritique.ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur)
+                fonctionnaliteCritique.ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch);
             },
             /**
              * Supprime la critique spécifiée.

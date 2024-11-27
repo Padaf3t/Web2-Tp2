@@ -8,7 +8,7 @@ import {addCritique} from "./httpCritiques.js";
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur) {
+export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -22,6 +22,7 @@ export async function ajouterNouvelleCritique(event, setListeCritiques, setMessa
     try {
         let nouvelleCritique = await addCritique(nouvelleCritiqueInfo);
         setListeCritiques((anciennesCritiques) => [nouvelleCritique, ...anciennesCritiques]);
+        triggerCritiqueRefetch();
         setMessageErreur("");
     }
     catch (e) {
