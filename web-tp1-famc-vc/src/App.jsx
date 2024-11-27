@@ -24,12 +24,12 @@ import {fetchAvailableCritiquesAsync} from "./script/httpCritiques.js";
 function App() {
 
     //Accès aux données
-    let critiquesStorage = localStorage.getItem("critiquesStorage") !== null ? JSON.parse(localStorage.getItem("critiquesStorage")) : critiques;
+    //let critiquesStorage = localStorage.getItem("critiquesStorage") !== null ? JSON.parse(localStorage.getItem("critiquesStorage")) : critiques;
     //let produitsStorage = localStorage.getItem("produitsStorage") !== null ? JSON.parse(localStorage.getItem("produitsStorage")) : films;
 
     //State
     const [listeProduits, setListeProduits] = useState([]);
-    const [listeCritiques, setListeCritiques] = useState(critiquesStorage);
+    const [listeCritiques, setListeCritiques] = useState([]);
     const [valeurFormulaire, setValeurFormulaire] = useState(fonctionnaliteProduit.getValeurFormulaireVide());
     const [produitEnModification, setProduitEnModification] = useState(false);
     const [, setEstPret] = useState(false);
@@ -42,7 +42,7 @@ function App() {
     const gestionnaireStatistiquesRef = useRef(null);
 
     //Initialisation du localStorage
-    fonctionnaliteCritique.setLocalStorageCritiques(listeCritiques);
+    //fonctionnaliteCritique.setLocalStorageCritiques(listeCritiques);
     fonctionnaliteProduit.setLocalStorageProduits(listeProduits);
     const mapCategorieProduit = fonctionnaliteStatistique.obtenirMapCategorieProduit(listeProduits);
 

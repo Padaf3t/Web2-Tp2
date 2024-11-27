@@ -1,4 +1,5 @@
 import {validerNote0A100, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
+import {addCritique} from "./httpCritiques.js";
 
 /**
  * Ajoute une nouvelle critique à la liste.
@@ -7,34 +8,27 @@ import {validerNote0A100, validerStringsRemplies} from "./fonctionnaliteUtilitai
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur) {
+export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
 
-    let nextId = obtenirNextIdLocalStorage();
-
-    let nouvelleCritique = obtenirNouvelleCritique(formData, nextId);
+    let nouvelleCritique = obtenirNouvelleCritique(formData);
 
     if (!validerNouvelleCritique(formData, nouvelleCritique, setMessageErreur)) {
         return;
     }
-
-    ++nextId;
-    setListeCritiques((anciennesCritiques) => [nouvelleCritique, ...anciennesCritiques]);
-    setMessageErreur("");
-
+    
+    try {
+        const newId = await addCritique(nouvelleCritique);
+        nouvelleCritique.id = newId;
+        setListeCritiques((anciennesCritiques) => [nouvelleCritique, ...anciennesCritiques]);
+        setMessageErreur("");
+    }
+    catch (e) {
+        console.log(e);
+    }
     event.target.reset();
-}
-
-/**
- * Récupère le prochain ID à partir du localStorage.
- *
- * @returns {number} Le prochain ID à attribuer à une nouvelle critique, ou 1 si aucune critique n'existe.
- */
-function obtenirNextIdLocalStorage() {
-    const critiquesStorage = JSON.parse(localStorage.getItem("critiquesStorage")) || [];
-    return critiquesStorage.length > 0 ? Math.max(...critiquesStorage.map(critique => critique.id)) + 1 : 1;
 }
 
 /**
@@ -64,22 +58,17 @@ function validerNouvelleCritique(formData, nouvelleCritique, setMessageErreur) {
  * Crée une nouvelle critique à partir des données d'un formulaire.
  *
  * @param {FormData} formData - Les données du formulaire de soumission de la critique.
- * @param {number} nextId - L'identifiant unique à attribuer à la nouvelle critique.
  * @returns {Object} Un objet représentant la nouvelle critique.
  */
-function obtenirNouvelleCritique(formData, nextId) {
-    //Obtient la moyenne des notes
-    let calculMoyenne =  (parseFloat(formData.get("qualiteVisuelle"))+parseFloat(formData.get("qualiteSonore"))+parseFloat(formData.get("appreciation")))/3;
-    calculMoyenne = Math.round(calculMoyenne * 10) / 10;
+function obtenirNouvelleCritique(formData) {
+    
 
     return {
-        id: nextId,
         EIDR: Number(formData.get("nomFilm")),
         date: new Intl.DateTimeFormat('en-CA').format(Date.now()),
         qualiteVisuelle: Number(formData.get("qualiteVisuelle")),
         qualiteSonore: Number(formData.get("qualiteSonore")),
-        appreciation: Number(formData.get("appreciation")),
-        moyenne: calculMoyenne
+        appreciation: Number(formData.get("appreciation"))
     }
 }
 
@@ -94,17 +83,17 @@ export function retirerCritique(event, id, setListeCritiques) {
     setListeCritiques(ancienneListe => ancienneListe.filter(critique => critique.id !== id));
 }
 
-/**
- * Enregistre la liste des critiques dans le localStorage.
- *
- * @param {array} listeCritiques - La liste des critiques à enregistrer.
- */
-export function setLocalStorageCritiques(listeCritiques){
-    if(localStorage.getItem("critiquesStorage") !== null){
-        localStorage.removeItem("critiquesStorage");
-    }
-    localStorage.setItem("critiquesStorage", JSON.stringify(listeCritiques));
-}
+// /**
+//  * Enregistre la liste des critiques dans le localStorage.
+//  *
+//  * @param {array} listeCritiques - La liste des critiques à enregistrer.
+//  */
+// export function setLocalStorageCritiques(listeCritiques){
+//     if(localStorage.getItem("critiquesStorage") !== null){
+//         localStorage.removeItem("critiquesStorage");
+//     }
+//     localStorage.setItem("critiquesStorage", JSON.stringify(listeCritiques));
+// }
 
 /**
  * Obtient le nom du produit associé à un EIDR.
