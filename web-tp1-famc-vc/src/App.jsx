@@ -1,6 +1,4 @@
 import {useRef, useState, useEffect} from "react";
-import {films} from "./data/films.js";
-import {critiques} from "./data/critiques.js";
 import SectionCritiques from "./components/SectionCritiques.jsx";
 import SectionProduit from "./components/SectionProduits.jsx";
 import 'bootstrap/dist/css/bootstrap.css';
