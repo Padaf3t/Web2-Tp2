@@ -9,7 +9,7 @@ import {forwardRef, useImperativeHandle} from "react";
  */
 const GestionnaireProduits = forwardRef((props, ref) => {
     const{listeProduits, setListeProduits, setListeCritiques,listeCritiques,produitEnModification,
-        setProduitEnModification,setValeurFormulaire, lorsquePret, fonctionnaliteProduit, fonctionnaliteCritique} = props;
+        setProduitEnModification,setValeurFormulaire, lorsquePret, fonctionnaliteProduit, fonctionnaliteCritique, triggerProduitRefetch} = props;
 
     useImperativeHandle(ref, () => {
         //S'assure que le composant est prêt et force un rerendu si tel est le cas
@@ -23,7 +23,7 @@ const GestionnaireProduits = forwardRef((props, ref) => {
              * @param {Function} setMessageErreur - Fonction pour mettre à jour le message d'erreur.
              */
             sauvegarderProduit: (event, setMessageErreur) => {
-                fonctionnaliteProduit.sauvegarderProduit(event, setListeProduits, listeProduits, produitEnModification, setProduitEnModification, setValeurFormulaire, setMessageErreur)
+                fonctionnaliteProduit.sauvegarderProduit(event, setListeProduits, listeProduits, produitEnModification, setProduitEnModification, setValeurFormulaire, setMessageErreur, triggerProduitRefetch)
             },
             /**
              * Met le produit spécifié en mode de modification.

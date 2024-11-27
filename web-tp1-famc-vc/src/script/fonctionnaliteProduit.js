@@ -12,7 +12,7 @@ import {ajouteProduits, deleteProduit, modifierProduitBackend} from "./httpProdu
  * @param {function} setValeurFormulaire - Fonction pour mettre à jour les valeurs du formulaire.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur) {
+export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur, triggerRefetch) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -22,7 +22,7 @@ export async function sauvegarderProduit(event, setListeProduits, listeProduits,
         return;
     }
 
-    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit)) {
+    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit, triggerRefetch)) {
         return;
     }
 
@@ -100,16 +100,16 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur) {
  * @param {Object} nouveauProduit - Le nouveau produit à ajouter ou à modifier.
  * @returns {boolean} True si l'opération s'est déroulée avec succès, false sinon.
  */
-async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit) {
+async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit,triggerProduitRefetch) {
     if (!enModification) {
-
         if (validerNumeroEIDR(listeProduits, nouveauProduit.eidr)) {
             try{
                 const nouvelId = await ajouteProduits(nouveauProduit);
                 nouveauProduit.id = nouvelId;
                 setListeProduits((ancienneListe) => [nouveauProduit, ...ancienneListe]);
+                triggerProduitRefetch();
             } catch (e) {
-                console.log('le nouveau produit n\'a pas pu être ajouté');
+                console.log(e + 'le nouveau produit n\'a pas pu être ajouté');
                 //setError({error: "error", message: e.message});
             }
         } else {
@@ -125,6 +125,7 @@ async function ModifierListeProduit(enModification, setEnModification, listeProd
                     return produit.eidr === nouveauProduit.eidr ? nouveauProduit : produit
                 })
             });
+            triggerProduitRefetch();
             setValeurFormulaire(() => getValeurFormulaireVide())
         } catch (e) {
             console.log('la modification du produit n\'a pas pu être effectué');

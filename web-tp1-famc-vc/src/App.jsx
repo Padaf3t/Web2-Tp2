@@ -33,20 +33,27 @@ function App() {
     const [, setEstPret] = useState(false);
     const [error, setError] = useState({error: "none", message: ""});
     const [isFetching, setIsFetching] = useState(false);
+    const [triggerProduitRefetch, setTriggerProduitRefetch] = useState(false);
+    const [triggerCritiqueRefetch, setTriggerCritiqueRefetch] = useState(false);
 
     //Ref
     const gestionnaireProduitsRef = useRef(null);
     const gestionnaireCritiquesRef = useRef(null);
     const gestionnaireStatistiquesRef = useRef(null);
 
-    //Initialisation du localStorage
-    //fonctionnaliteCritique.setLocalStorageCritiques(listeCritiques);
-    fonctionnaliteProduit.setLocalStorageProduits(listeProduits);
     const mapCategorieProduit = fonctionnaliteStatistique.obtenirMapCategorieProduit(listeProduits);
 
     //Fonction pour rendre prête la reférence des gestionnaires
     const gestionnaireEstPret = () => {
         setEstPret(true);
+    };
+
+    const handleProduitRefetch = () => {
+        setTriggerProduitRefetch((prev) => !prev); // Change trigger state
+    };
+
+    const handleCritiqueRefetch = () => {
+        setTriggerCritiqueRefetch((prev) => !prev); // Change trigger state
     };
 
     useEffect(() => {
@@ -63,7 +70,7 @@ function App() {
         }
         fetchData();
 
-    }, [fetchAvailableProduitsAsync, setListeProduits]);
+    }, [fetchAvailableProduitsAsync, triggerProduitRefetch]);
 
     useEffect(() => {
         async function fetchData() {
@@ -79,7 +86,7 @@ function App() {
         }
         fetchData();
 
-    }, [fetchAvailableCritiquesAsync, setListeCritiques]);
+    }, [fetchAvailableCritiquesAsync, triggerCritiqueRefetch]);
 
     return (
         <>
@@ -93,12 +100,15 @@ function App() {
                                   setValeurFormulaire={setValeurFormulaire}
                                   lorsquePret={gestionnaireEstPret}
                                   fonctionnaliteCritique={fonctionnaliteCritique}
-                                  fonctionnaliteProduit={fonctionnaliteProduit}/>
+                                  fonctionnaliteProduit={fonctionnaliteProduit}
+                                  triggerProduitRefetch={handleProduitRefetch}
+                                  triggerCritiqueRefetch={handleCritiqueRefetch}/>
             <GestionnaireCritiques ref={gestionnaireCritiquesRef}
                                    listeProduits={listeProduits}
                                    setListeCritiques={setListeCritiques}
                                    lorsquePret={gestionnaireEstPret}
-                                   fonctionnaliteCritique={fonctionnaliteCritique}/>
+                                   fonctionnaliteCritique={fonctionnaliteCritique}
+                                   triggerCritiqueRefetch={handleCritiqueRefetch}/>
             <GestionnaireStatistiques ref={gestionnaireStatistiquesRef}
                                       listeProduits={listeProduits}
                                       listeCritiques={listeCritiques}
