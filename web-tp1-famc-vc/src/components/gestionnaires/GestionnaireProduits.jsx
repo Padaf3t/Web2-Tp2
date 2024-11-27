@@ -9,7 +9,7 @@ import {forwardRef, useImperativeHandle} from "react";
  */
 const GestionnaireProduits = forwardRef((props, ref) => {
     const{listeProduits, setListeProduits, setListeCritiques,listeCritiques,produitEnModification,
-        setProduitEnModification,setValeurFormulaire, lorsquePret, fonctionnaliteProduit, fonctionnaliteCritique, triggerProduitRefetch} = props;
+        setProduitEnModification,setValeurFormulaire, lorsquePret, fonctionnaliteProduit, fonctionnaliteCritique, triggerProduitRefetch, triggerCritiqueRefetch} = props;
 
     useImperativeHandle(ref, () => {
         //S'assure que le composant est prêt et force un rerendu si tel est le cas
@@ -52,7 +52,7 @@ const GestionnaireProduits = forwardRef((props, ref) => {
              * @param {number} EIDR - L'identifiant du produit à supprimer.
              */
             supprimerProduit: (event, eidr) => {
-                fonctionnaliteProduit.supprimerUnProduit(event, eidr, setListeProduits, fonctionnaliteCritique, listeCritiques, setListeCritiques);
+                fonctionnaliteProduit.supprimerUnProduit(event, eidr, setListeProduits, fonctionnaliteCritique, listeCritiques, setListeCritiques, triggerProduitRefetch, triggerCritiqueRefetch);
             },
 
         }

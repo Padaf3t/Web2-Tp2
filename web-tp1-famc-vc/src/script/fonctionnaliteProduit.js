@@ -201,7 +201,7 @@ export function modifierValeurEnumGenre(event, setValeurFormulaire) {
  * @param {Array} listeCritiques - La liste des critiques.
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  */
-export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCritiques, listeCritiques, setListeCritiques) {
+export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCritiques, listeCritiques, setListeCritiques, triggerProduitRefetch, triggerCritiqueRefetch) {
     event.preventDefault();
 
     try{
@@ -210,6 +210,7 @@ export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCri
         if(isDelete){
             setListeProduits(old => {
                 return old.filter(p => p.eidr !== eidr)});
+            triggerProduitRefetch();
 
             // for (let i = 0; i < listeCritiques.length; i++) {
             //     let critiqueTemp = listeCritiques[i];
