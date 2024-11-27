@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useRef, useState, useEffect} from "react";
 import {films} from "./data/films.js";
 import {critiques} from "./data/critiques.js";
 import SectionCritiques from "./components/SectionCritiques.jsx";
@@ -18,19 +18,22 @@ import * as fonctionnaliteStatistique from "./script/fonctionnaliteStatistiques.
 import * as fonctionnaliteCritique from "./script/fonctionnaliteCritique.js";
 import * as fonctionnaliteProduit from "./script/fonctionnaliteProduit.js"
 import style from './style/Statistique.module.css'
+import {fetchAvailableProduitsAsync} from "./script/httpProduits.js";
 
 function App() {
 
     //Accès aux données
     let critiquesStorage = localStorage.getItem("critiquesStorage") !== null ? JSON.parse(localStorage.getItem("critiquesStorage")) : critiques;
-    let produitsStorage = localStorage.getItem("produitsStorage") !== null ? JSON.parse(localStorage.getItem("produitsStorage")) : films;
+    //let produitsStorage = localStorage.getItem("produitsStorage") !== null ? JSON.parse(localStorage.getItem("produitsStorage")) : films;
 
     //State
-    const [listeProduits, setListeProduits] = useState(produitsStorage);
+    const [listeProduits, setListeProduits] = useState([]);
     const [listeCritiques, setListeCritiques] = useState(critiquesStorage);
     const [valeurFormulaire, setValeurFormulaire] = useState(fonctionnaliteProduit.getValeurFormulaireVide());
     const [produitEnModification, setProduitEnModification] = useState(false);
     const [, setEstPret] = useState(false);
+    const [error, setError] = useState({error: "none", message: ""});
+    const [isFetching, setIsFetching] = useState(false);
 
     //Ref
     const gestionnaireProduitsRef = useRef(null);
@@ -46,6 +49,22 @@ function App() {
     const gestionnaireEstPret = () => {
         setEstPret(true);
     };
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsFetching(true)
+            try {
+                const data = await fetchAvailableProduitsAsync();
+                setListeProduits(data);
+            } catch (error) {
+                setError({error: "error", message: error.message});
+            } finally {
+                setIsFetching(false);
+            }
+        }
+        fetchData();
+
+    }, [fetchAvailableProduitsAsync, setListeProduits]);
 
     return (
         <>
