@@ -19,6 +19,7 @@ import * as fonctionnaliteCritique from "./script/fonctionnaliteCritique.js";
 import * as fonctionnaliteProduit from "./script/fonctionnaliteProduit.js"
 import style from './style/Statistique.module.css'
 import {fetchAvailableProduitsAsync} from "./script/httpProduits.js";
+import {fetchAvailableCritiquesAsync} from "./script/httpCritiques.js";
 
 function App() {
 
@@ -65,6 +66,22 @@ function App() {
         fetchData();
 
     }, [fetchAvailableProduitsAsync, setListeProduits]);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsFetching(true)
+            try {
+                const data = await fetchAvailableCritiquesAsync();
+                setListeCritiques(data);
+            } catch (error) {
+                setError({error: "error", message: error.message});
+            } finally {
+                setIsFetching(false);
+            }
+        }
+        fetchData();
+
+    }, [fetchAvailableCritiquesAsync, setListeCritiques]);
 
     return (
         <>
