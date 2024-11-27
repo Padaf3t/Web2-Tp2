@@ -40,7 +40,7 @@ export async function deleteCritiqueById(id) {
 }
 
 export async function deleteCritiqueByEidr(eidr) {
-    const response = await fetch('http://localhost:8080/location/deletebyeidr/' + eidr,
+    const response = await fetch('http://localhost:8080/critique/deletebyeidr/' + eidr,
         {
             method: 'DELETE',
             headers: {}
