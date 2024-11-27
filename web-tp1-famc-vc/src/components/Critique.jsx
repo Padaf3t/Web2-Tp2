@@ -24,7 +24,7 @@ export default function Critique({...critique}){
      * @param {Event} event - L'événement déclencheur.
      */
     const supprimerCritique = (event) => {
-        refGestionnaire.current.supprimerCritique(event, id);
+        refGestionnaire.current.supprimerCritiqueParId(event, id);
     };
 
     const nomProduit = refGestionnaire.current?.obtenirNomProduitPourCritique(eidr);

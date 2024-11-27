@@ -26,3 +26,27 @@ export async function addCritique(critique) {
     const resData = await response.json();
     return resData;
 }
+
+export async function deleteCritiqueById(id) {
+    const response = await fetch('http://localhost:8080/critique/deletebyid/' + id,
+        {
+            method: 'DELETE',
+            headers: {}
+        }
+    )
+    if (!response.ok) {
+        throw new Error('la destruction a échouée');
+    }
+}
+
+export async function deleteCritiqueByEidr(eidr) {
+    const response = await fetch('http://localhost:8080/location/deletebyeidr/' + eidr,
+        {
+            method: 'DELETE',
+            headers: {}
+        }
+    )
+    if (!response.ok) {
+        throw new Error('la destruction a échouée');
+    }
+}

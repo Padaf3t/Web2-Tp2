@@ -27,8 +27,16 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * @param {Event} event - L'événement déclencheur.
              * @param {number} id - L'identifiant de la critique à supprimer.
              */
-            supprimerCritique: (event, id) => {
-                fonctionnaliteCritique.retirerCritique(event, id, setListeCritiques);
+            supprimerCritiqueParId: (event, id) => {
+                fonctionnaliteCritique.retirerCritiqueParId(event, id, setListeCritiques, triggerCritiqueRefetch);
+            },
+            /**
+             * Supprime la critique spécifiée.
+             * @param {Event} event - L'événement déclencheur.
+             * @param {number} id - L'identifiant de la critique à supprimer.
+             */
+            supprimerCritiquesParEidr: (event, eidr) => {
+                fonctionnaliteCritique.retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch);
             },
             /**
              * Obtient le nom du produit associé à une critique spécifiée.

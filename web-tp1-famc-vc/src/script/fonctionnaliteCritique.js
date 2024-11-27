@@ -1,5 +1,5 @@
 import {validerNote0A100, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
-import {addCritique} from "./httpCritiques.js";
+import {addCritique, deleteCritiqueById} from "./httpCritiques.js";
 
 /**
  * Ajoute une nouvelle critique à la liste.
@@ -78,22 +78,35 @@ function obtenirNouvelleCritique(formData) {
  * @param {Event} event - L'événement de clic sur le bouton de suppression.
  * @param {number} id - L'identifiant de la critique à supprimer.
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
+ * @param triggerCritiqueRefetch
  */
-export function retirerCritique(event, id, setListeCritiques) {
-    setListeCritiques(ancienneListe => ancienneListe.filter(critique => critique.id !== id));
+export async function retirerCritiqueParId(event, id, setListeCritiques, triggerCritiqueRefetch) {
+    event.preventDefault();
+
+    try {
+        await deleteCritiqueById(id);
+        setListeCritiques(ancienneListe => ancienneListe.filter(critique => critique.id !== id));
+        triggerCritiqueRefetch();
+    }
+    catch (e) {
+        console.log('La destruction de ' + id + ' n\'a pas fonctionné');
+    }
+
+
 }
 
-// /**
-//  * Enregistre la liste des critiques dans le localStorage.
-//  *
-//  * @param {array} listeCritiques - La liste des critiques à enregistrer.
-//  */
-// export function setLocalStorageCritiques(listeCritiques){
-//     if(localStorage.getItem("critiquesStorage") !== null){
-//         localStorage.removeItem("critiquesStorage");
-//     }
-//     localStorage.setItem("critiquesStorage", JSON.stringify(listeCritiques));
-// }
+export async function retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch) {
+    event.preventDefault();
+
+    try {
+        await deleteCritiqueById(id);
+        setListeCritiques(ancienneListe => ancienneListe.filter(critique => critique.eidr !== eidr));
+        triggerCritiqueRefetch();
+    }
+    catch (e) {
+        console.log("La destruction des critiques avec l'eidr " + id + " n'a pas fonctionné");
+    }
+}
 
 /**
  * Obtient le nom du produit associé à un EIDR.
