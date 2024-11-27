@@ -15,7 +15,7 @@ body {
 h1 {
   font-size: 5em;
   line-height: 1.1;
-  color: #B1F06E;
+  color: #DE6EF0;
   font-family: Impact, serif;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: black;
@@ -41,6 +41,22 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.titreButtonSelected {
+  background-color: #B1F06E;
+}
+
+.titreButtonUnselected {
+  background-color: #6ECEF0;
+}
+
+#titresDiv button {
+  margin: 20px;
+}
+
+#divAfficherFormButton {
+  float: right;
 }
 
 .sectionDiv {

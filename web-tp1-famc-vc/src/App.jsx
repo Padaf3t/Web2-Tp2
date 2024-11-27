@@ -158,6 +158,8 @@ function App() {
                            handleBoutonAfficherForm={handleBoutonAfficherForm}
                            isShowingForm={isShowingForm}
                            isShowingStatistique={isShowingStatistique}
+                           isShowingProduit={isShowingProduit}
+                           isShowingCritique={isShowingCritique}
                            produitEnModification={produitEnModification}/>
 
             {isShowingProduit &&
