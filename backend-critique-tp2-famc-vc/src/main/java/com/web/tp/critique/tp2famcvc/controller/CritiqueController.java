@@ -313,6 +313,7 @@ public class CritiqueController implements CommandLineRunner {
         Long id = -1L;
         String message = critiqueValidateur.validateCritique(critique);
         if (message.equals("")) {
+            critique.setMoyenne(Critique.calculerMoyenne(critique.getQualiteVisuelle(), critique.getQualiteSonore(), critique.getAppreciation()));
             id = critiqueRepository.save(critique).getId();
             logger.info("*** Critique" + id + " sauvegardée ***");
         }
