@@ -16,7 +16,7 @@ export default function SectionProduit({listeProduits, produitEnModification, ch
             <h1>Films</h1>
             <div className="contenuSectionDiv">
                 {!produitEnModification && listeProduits.map((produit) => (
-                    <Produit key={produit.EIDR} {...produit}/>
+                    <Produit key={produit.eidr} {...produit}/>
                 ))}
             </div>
             {children}

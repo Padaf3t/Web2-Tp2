@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 
 @RestController
@@ -62,14 +60,14 @@ public class ProduitController implements CommandLineRunner {
         return EIDR;
     }
 
-    @PutMapping("/produits/put/{EIDR}")
-    Produit updateProduit(@RequestBody Produit newProduit, @PathVariable int EIDR) throws ProduitInformationInvalidException {
+    @PutMapping("/produits/put")
+    Produit updateProduit(@RequestBody Produit newProduit) throws ProduitInformationInvalidException {
 
-        logger.info("****Updater un produit " + EIDR);
+        logger.info("****Updater un produit " + newProduit.getEidr());
         Produit retProduit = null;
         String message = produitValidateur.validateProduit(newProduit);
         if (message.equals("")) {
-            retProduit = produitRepository.findFirstByEidr(EIDR);
+            retProduit = produitRepository.findFirstByEidr(newProduit.getEidr());
             retProduit.setDateSortie(newProduit.getDateSortie());
             retProduit.setRealisateur(newProduit.getRealisateur());
             retProduit.setGenre(newProduit.getGenre());

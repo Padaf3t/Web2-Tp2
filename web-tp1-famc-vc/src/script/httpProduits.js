@@ -26,3 +26,22 @@ export async function ajouteProduits(produit) {
     return resData;
 }
 
+export async function modifierProduitBackend(produit) {
+    const response = await fetch('http://localhost:8888/produits/put',
+        {
+            method: 'PUT',
+            body: JSON.stringify(produit),
+            headers:
+                {
+                    'Content-Type': 'application/json'
+                }
+        }
+    );
+    if (!response.ok) {
+        const raison = await response.json();
+        throw new Error('La location n\'a pas pu être créée ou modifiée' + raison.message);
+    }
+    const resData = await response.json();
+    return resData;
+}
+

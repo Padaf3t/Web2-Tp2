@@ -1,5 +1,5 @@
 import {validerLongueurMaxString, validerNombrePositif, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
-import {ajouteProduits} from "./httpProduits.js";
+import {ajouteProduits, modifierProduitBackend} from "./httpProduits.js";
 
 /**
  * Sauvegarde un nouveau produit ou met à jour un produit existant.
@@ -48,7 +48,7 @@ function obtenirProduitDuFormulaire(formData) {
     let src = formData.get("src");
 
     return {
-        EIDR: Number(id),
+        eidr: Number(id),
         nom: nom,
         dateSortie: date,
         realisateur: realisateur,
@@ -103,7 +103,7 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur) {
 async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit) {
     if (!enModification) {
 
-        if (validerNumeroEIDR(listeProduits, nouveauProduit.EIDR)) {
+        if (validerNumeroEIDR(listeProduits, nouveauProduit.eidr)) {
             try{
                 const nouvelId = await ajouteProduits(nouveauProduit);
                 nouveauProduit.id = nouvelId;
@@ -113,17 +113,25 @@ async function ModifierListeProduit(enModification, setEnModification, listeProd
                 //setError({error: "error", message: e.message});
             }
         } else {
-            setMessageErreur("Le numéro EIDR " + nouveauProduit.EIDR + " existe déjà")
+            setMessageErreur("Le numéro EIDR " + nouveauProduit.eidr + " existe déjà")
             return false;
         }
     } else {
         setEnModification(false);
-        setListeProduits((liste) => {
-            return liste.map(produit => {
-                return produit.EIDR === nouveauProduit.EIDR ? nouveauProduit : produit
-            })
-        });
-        setValeurFormulaire(() => getValeurFormulaireVide())
+        try{
+            await modifierProduitBackend(nouveauProduit)
+            setListeProduits((liste) => {
+                return liste.map(produit => {
+                    return produit.eidr === nouveauProduit.eidr ? nouveauProduit : produit
+                })
+            });
+            setValeurFormulaire(() => getValeurFormulaireVide())
+        } catch (e) {
+            console.log('la modification du produit n\'a pas pu être effectué');
+            //setError({error: "error", message: e.message});
+        }
+
+
     }
     return true;
 }
@@ -140,7 +148,7 @@ export function modifierProduit(setValeurFormulaire, setEnModification, produit)
     setValeurFormulaire(() => ({
         titreFormulaire: "Modifier le film (" + produit.nom + ")",
         titreBouton: "Modifier",
-        EIDR: produit.EIDR,
+        EIDR: produit.eidr,
         nom: produit.nom,
         dateSortie: new Date(produit.dateSortie).toISOString().split('T')[0],
         realisateur: produit.realisateur,
@@ -196,13 +204,13 @@ export function supprimerProduit(event, id, setListeProduits, fonctCritiques, li
     event.preventDefault();
     for (let i = 0; i < listeCritiques.length; i++) {
         let critiqueTemp = listeCritiques[i];
-        if (critiqueTemp.EIDR === id) {
+        if (critiqueTemp.eidr === id) {
             let idCritique = critiqueTemp.id;
             fonctCritiques.retirerCritique(event, idCritique, setListeCritiques)
         }
 
     }
-    setListeProduits(ancienneListe => ancienneListe.filter(produit => produit.EIDR !== id));
+    setListeProduits(ancienneListe => ancienneListe.filter(produit => produit.eidr !== id));
 }
 
 /**
@@ -238,5 +246,5 @@ export function setLocalStorageProduits(listeProduits) {
  * @returns {boolean} True si le numéro EIDR n'existe pas, false sinon.
  */
 function validerNumeroEIDR(listeProduit, EIDR) {
-    return !listeProduit.some((produit) => produit.EIDR === EIDR);
+    return !listeProduit.some((produit) => produit.eidr === EIDR);
 }
