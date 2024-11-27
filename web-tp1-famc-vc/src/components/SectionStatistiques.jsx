@@ -25,7 +25,6 @@ export default function SectionStatistique({listeProduits, listeCritiques, child
 
     return (
         <div className="sectionDiv">
-            <h1>Statistiques</h1>
             <h2>Films par popularité</h2>
             <div className="contenuSectionDiv">
                 {listeProduitsAvecMoyenne.map((produit) => (

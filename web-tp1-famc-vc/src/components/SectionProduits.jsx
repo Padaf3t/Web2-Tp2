@@ -9,13 +9,12 @@ import Produit from "./Produit.jsx";
  * @param {React.ReactNode} props.children - Éléments enfants à afficher en dessous de la liste de produits.
  * @returns {JSX.Element} Le rendu du composant.
  */
-export default function SectionProduit({listeProduits, produitEnModification, children}){
+export default function SectionProduit({listeProduits, produitEnModification, isShowingForm, children}){
 
     return (
         <div className="sectionDiv">
-            <h1>Films</h1>
             <div className="contenuSectionDiv">
-                {!produitEnModification && listeProduits.map((produit) => (
+                {!produitEnModification && !isShowingForm && listeProduits.map((produit) => (
                     <Produit key={produit.eidr} {...produit}/>
                 ))}
             </div>

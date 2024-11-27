@@ -18,6 +18,7 @@ import * as fonctionnaliteProduit from "./script/fonctionnaliteProduit.js"
 import style from './style/Statistique.module.css'
 import {fetchAvailableProduitsAsync} from "./script/httpProduits.js";
 import {fetchAvailableCritiquesAsync} from "./script/httpCritiques.js";
+import SectionTitres from "./components/SectionTitres.jsx";
 
 function App() {
 
@@ -35,6 +36,11 @@ function App() {
     const [isFetching, setIsFetching] = useState(false);
     const [triggerProduitRefetch, setTriggerProduitRefetch] = useState(false);
     const [triggerCritiqueRefetch, setTriggerCritiqueRefetch] = useState(false);
+
+    const [isShowingProduit, setIsShowingProduit] = useState(false);
+    const [isShowingCritique, setIsShowingCritique] = useState(false);
+    const [isShowingStatistique, setIsShowingStatistique] = useState(false);
+    const [isShowingForm, setIsShowingForm] = useState(false);
 
     //Ref
     const gestionnaireProduitsRef = useRef(null);
@@ -55,6 +61,37 @@ function App() {
     const handleCritiqueRefetch = () => {
         setTriggerCritiqueRefetch((prev) => !prev); // Change trigger state
     };
+
+    const handleBoutonProduit = () => {
+
+        setIsShowingProduit(true);
+        setIsShowingCritique(false);
+        setIsShowingStatistique(false);
+        setIsShowingForm(false);
+    }
+
+    const handleBoutonCritique = () => {
+        setIsShowingProduit(false);
+        setIsShowingCritique(true);
+        setIsShowingStatistique(false);
+        setIsShowingForm(false);
+    }
+
+    const handleBoutonStatistique = () => {
+        setIsShowingProduit(false);
+        setIsShowingCritique(false);
+        setIsShowingStatistique(true);
+        setIsShowingForm(false);
+    }
+
+    const handleBoutonAfficherForm = () => {
+        // setIsShowingForm(true);
+        setIsShowingForm(prev => !prev);
+    }
+
+    useEffect(() => {
+        setIsShowingForm(produitEnModification)
+    }, [produitEnModification]);
 
     useEffect(() => {
         async function fetchData() {
@@ -115,19 +152,36 @@ function App() {
                                       lorsquePret={gestionnaireEstPret}
                                       fonctionnaliteStatistique={fonctionnaliteStatistique}/>
 
+            <SectionTitres handleBoutonProduit={handleBoutonProduit}
+                           handleBoutonCritique={handleBoutonCritique}
+                           handleBoutonStatistique={handleBoutonStatistique}
+                           handleBoutonAfficherForm={handleBoutonAfficherForm}
+                           isShowingForm={isShowingForm}
+                           isShowingStatistique={isShowingStatistique}
+                           produitEnModification={produitEnModification}/>
+
+            {isShowingProduit &&
             <GestionnaireReferenceProduitsContext.Provider value={gestionnaireProduitsRef}>
-                <SectionProduit listeProduits={listeProduits} produitEnModification={produitEnModification}>
+                <SectionProduit listeProduits={listeProduits} produitEnModification={produitEnModification} isShowingForm={isShowingForm}>
+                    {isShowingForm &&
                     <FormulaireProduit valeurFormulaire={valeurFormulaire}
                                        produitEnModification={produitEnModification}/>
+                    }
                 </SectionProduit>
             </GestionnaireReferenceProduitsContext.Provider>
+            }
 
+            {isShowingCritique &&
             <GestionnaireReferenceCritiquesContext.Provider value={gestionnaireCritiquesRef}>
-                <SectionCritiques listeCritiques={listeCritiques} listeProduits={listeProduits}>
+                <SectionCritiques listeCritiques={listeCritiques} listeProduits={listeProduits} isShowingForm={isShowingForm}>
+                    {isShowingForm &&
                     <FormulaireCritique listeProduits={listeProduits}/>
+                    }
                 </SectionCritiques>
             </GestionnaireReferenceCritiquesContext.Provider>
+            }
 
+            {isShowingStatistique &&
             <GestionnaireReferenceStatistiquesContext.Provider value={gestionnaireStatistiquesRef}>
                 <SectionStatistique listeProduits={listeProduits} listeCritiques={listeCritiques}>
                     <h2 className={style.soustitre}>Moyenne des notes par genre</h2>
@@ -147,6 +201,7 @@ function App() {
                 </SectionStatistique>
 
             </GestionnaireReferenceStatistiquesContext.Provider>
+            }
         </>
     )
 }

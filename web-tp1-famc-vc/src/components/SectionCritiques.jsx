@@ -8,13 +8,12 @@ import Critique from "./Critique.jsx";
  * @param {React.ReactNode} props.children - Éléments enfants à afficher en dessous de la liste de critiques.
  * @returns {JSX.Element} Le rendu du composant.
  */
-export default function SectionCritiques({listeCritiques, children}) {
+export default function SectionCritiques({listeCritiques, isShowingForm, children}) {
 
     return (
         <div className="sectionDiv">
-            <h1>Critiques</h1>
             <div className="contenuSectionDiv">
-                {listeCritiques.map((critique) => {
+                {!isShowingForm && listeCritiques.map((critique) => {
                     return <Critique key={critique.id} {...critique}/>
                 })}
             </div>
