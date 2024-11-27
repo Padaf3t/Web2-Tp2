@@ -26,7 +26,7 @@ export default function FormulaireCritique({listeProduits}) {
                 <label htmlFor="nomFilm">Nom du film</label><br/>
                 <select name="nomFilm" id="nomFilm">
                     {listeProduits.map((produit) => (
-                        <option key={produit.EIDR} value={produit.EIDR}>{produit.nom}</option>
+                        <option key={produit.eidr} value={produit.eidr}>{produit.nom}</option>
                     ))}
                 </select><br/>
 

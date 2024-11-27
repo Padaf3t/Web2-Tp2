@@ -5,9 +5,9 @@
  * @param {Critique[]} listeCritiques - La liste de toutes les critiques.
  * @returns {string} La moyenne des moyennes de critiques arrondie à deux décimales, ou 0 si aucune critique n'est trouvée.
  */
-export function calculerMoyenneDesMoyennes(EIDR, listeCritiques) {
+export function calculerMoyenneDesMoyennes(eidr, listeCritiques) {
 
-    const listeCritiquesfiltree = listeCritiques.filter(critique => critique.EIDR === EIDR);
+    const listeCritiquesfiltree = listeCritiques.filter(critique => critique.eidr === eidr);
     if (listeCritiquesfiltree.length === 0) {
         return 0;
     }
@@ -30,7 +30,7 @@ export function calculerMoyenneDesMoyennes(EIDR, listeCritiques) {
 function obtenirListeProduitsAvecMoyenne(listeProduits, listeCritiques){
     return listeProduits.map(produit => ({
         ...produit,
-        moyenne: calculerMoyenneDesMoyennes(produit.EIDR, listeCritiques)
+        moyenne: calculerMoyenneDesMoyennes(produit.eidr, listeCritiques)
     }));
 }
 

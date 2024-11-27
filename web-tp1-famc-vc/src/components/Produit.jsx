@@ -6,7 +6,7 @@ import GestionnaireReferenceProduitsContext from "./contexts/GestionnaireReferen
  * Composant Produit qui affiche les détails d'un produit (film)
  * ainsi que des options pour le supprimer ou le modifier.
  * @param {Object} props - Les propriétés du composant.
- * @param {number} props.EIDR - L'identifiant du produit.
+ * @param {number} props.eidr - L'identifiant du produit.
  * @param {string} props.nom - Le nom du film.
  * @param {string} props.dateSortie - La date de sortie du film.
  * @param {string} props.realisateur - Le réalisateur du film.

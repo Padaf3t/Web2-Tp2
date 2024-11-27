@@ -48,7 +48,7 @@ export default function FormulaireProduit({valeurFormulaire, produitEnModificati
             <form onSubmit={submitFormulaireProduit}>
                 <label htmlFor="id">EIDR:</label><br/>
                 <input type="number" id="id" name="id" readOnly={produitEnModification} className={enModificationClassGrise}
-                       defaultValue={valeurFormulaire.EIDR}/><br/>
+                       defaultValue={valeurFormulaire.eidr}/><br/>
                 <label htmlFor="nom">Nom du film:</label><br/>
                 <input type="text" id="nom" name="nom" defaultValue={valeurFormulaire.nom} readOnly={produitEnModification} className={enModificationClassGrise}/><br/>
                 <label htmlFor="date">Date de sortie:</label><br/>

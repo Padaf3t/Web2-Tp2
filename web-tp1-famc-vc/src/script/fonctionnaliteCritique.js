@@ -64,7 +64,7 @@ function obtenirNouvelleCritique(formData) {
     
 
     return {
-        EIDR: Number(formData.get("nomFilm")),
+        eidr: Number(formData.get("nomFilm")),
         date: new Intl.DateTimeFormat('en-CA').format(Date.now()),
         qualiteVisuelle: Number(formData.get("qualiteVisuelle")),
         qualiteSonore: Number(formData.get("qualiteSonore")),
@@ -102,7 +102,7 @@ export function retirerCritique(event, id, setListeCritiques) {
  * @param {array} listeProduits - La liste de tous les produits.
  * @returns {string} - Le nom du produit, ou "Produit inconnu" si le produit n'est pas trouvé.
  */
-export function obtenirNomProduitPourCritique(EIDR, listeProduits) {
-    const produit = listeProduits.find(produit => produit.EIDR === EIDR);
+export function obtenirNomProduitPourCritique(eidr, listeProduits) {
+    const produit = listeProduits.find(produit => produit.eidr === eidr);
     return produit ? produit.nom : "Produit inconnu";
 }

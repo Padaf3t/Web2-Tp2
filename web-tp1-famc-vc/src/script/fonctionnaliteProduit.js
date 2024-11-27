@@ -148,7 +148,7 @@ export function modifierProduit(setValeurFormulaire, setEnModification, produit)
     setValeurFormulaire(() => ({
         titreFormulaire: "Modifier le film (" + produit.nom + ")",
         titreBouton: "Modifier",
-        EIDR: produit.eidr,
+        eidr: produit.eidr,
         nom: produit.nom,
         dateSortie: new Date(produit.dateSortie).toISOString().split('T')[0],
         realisateur: produit.realisateur,
@@ -169,7 +169,7 @@ export function getValeurFormulaireVide() {
     return {
         titreFormulaire: "Ajouter un nouveau film",
         titreBouton: "Ajouter",
-        EIDR: "",
+        eidr: "",
         nom: "",
         dateSortie: "",
         realisateur: "",
@@ -268,6 +268,6 @@ export function setLocalStorageProduits(listeProduits) {
  * @param {number} EIDR - Le numéro EIDR à vérifier.
  * @returns {boolean} True si le numéro EIDR n'existe pas, false sinon.
  */
-function validerNumeroEIDR(listeProduit, EIDR) {
-    return !listeProduit.some((produit) => produit.eidr === EIDR);
+function validerNumeroEIDR(listeProduit, eidr) {
+    return !listeProduit.some((produit) => produit.eidr === eidr);
 }

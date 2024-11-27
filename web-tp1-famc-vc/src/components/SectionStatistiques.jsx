@@ -30,7 +30,7 @@ export default function SectionStatistique({listeProduits, listeCritiques, child
             <div className="contenuSectionDiv">
                 {listeProduitsAvecMoyenne.map((produit) => (
                     <ElementStatistique
-                        key={produit.EIDR}
+                        key={produit.eidr}
                         nom={produit.nom}
                         afficheSrc={produit.afficheSrc}
                         moyenne={produit.moyenne}

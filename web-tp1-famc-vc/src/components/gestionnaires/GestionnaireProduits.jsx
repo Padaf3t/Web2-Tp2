@@ -51,8 +51,8 @@ const GestionnaireProduits = forwardRef((props, ref) => {
              * @param {Event} event - L'événement déclencheur.
              * @param {number} EIDR - L'identifiant du produit à supprimer.
              */
-            supprimerProduit: (event, EIDR) => {
-                fonctionnaliteProduit.supprimerUnProduit(event, EIDR, setListeProduits, fonctionnaliteCritique, listeCritiques, setListeCritiques);
+            supprimerProduit: (event, eidr) => {
+                fonctionnaliteProduit.supprimerUnProduit(event, eidr, setListeProduits, fonctionnaliteCritique, listeCritiques, setListeCritiques);
             },
 
         }

@@ -35,8 +35,8 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * @param {number} EIDR - L'identifiant du produit.
              * @returns {string} Le nom du produit.
              */
-            obtenirNomProduitPourCritique: (EIDR) => {
-                return fonctionnaliteCritique.obtenirNomProduitPourCritique(EIDR, listeProduits);
+            obtenirNomProduitPourCritique: (eidr) => {
+                return fonctionnaliteCritique.obtenirNomProduitPourCritique(eidr, listeProduits);
             },
 
         }

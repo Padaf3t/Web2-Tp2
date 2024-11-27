@@ -6,7 +6,7 @@ import GestionnaireReferenceCritiquesContext from "./contexts/GestionnaireRefere
  * Composant Critique qui affiche les détails d'une critique de film.
  * @param {Object} props - Les propriétés du composant.
  * @param {number} props.id - L'identifiant de la critique.
- * @param {number} props.EIDR - L'identifiant du produit associé à la critique.
+ * @param {number} props.eidr - L'identifiant du produit associé à la critique.
  * @param {number} props.qualiteVisuelle - La note de qualité visuelle.
  * @param {number} props.qualiteSonore - La note de qualité sonore.
  * @param {number} props.appréciation - La note d'appréciation.
@@ -15,7 +15,7 @@ import GestionnaireReferenceCritiquesContext from "./contexts/GestionnaireRefere
  */
 export default function Critique({...critique}){
 
-    const {id, EIDR, date, qualiteVisuelle, qualiteSonore, appreciation, moyenne} = critique;
+    const {id, eidr, date, qualiteVisuelle, qualiteSonore, appreciation, moyenne} = critique;
 
     const refGestionnaire = useContext(GestionnaireReferenceCritiquesContext);
 
@@ -27,7 +27,7 @@ export default function Critique({...critique}){
         refGestionnaire.current.supprimerCritique(event, id);
     };
 
-    const nomProduit = refGestionnaire.current?.obtenirNomProduitPourCritique(EIDR);
+    const nomProduit = refGestionnaire.current?.obtenirNomProduitPourCritique(eidr);
 
 
     return <div className={["elementDiv", styles.critiqueDiv].join(" ")} >
