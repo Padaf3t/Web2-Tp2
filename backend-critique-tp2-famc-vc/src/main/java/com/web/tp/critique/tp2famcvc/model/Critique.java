@@ -28,8 +28,15 @@ public class Critique {
     private int qualiteVisuelle;
     private int qualiteSonore;
     private int appreciation;
+    private double moyenne = 0;
+//    @Builder.Default
+//    private double moyenne = (double)(appreciation+qualiteSonore+qualiteVisuelle)/3;
 
-    public double getMoyenne() {
-        return (double)(getAppreciation()+getQualiteSonore()+getQualiteVisuelle())/3;
+//    public double getMoyenne() {
+//        return (double)(getAppreciation()+getQualiteSonore()+getQualiteVisuelle())/3;
+//    }
+
+    public static double calculerMoyenne(int qualiteVisuelle, int qualiteSonore, int appreciation) {
+        return (qualiteVisuelle + qualiteSonore + appreciation) / 3.0;
     }
 }

@@ -41,6 +41,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(90)
                     .qualiteSonore(88)
                     .appreciation(92)
+                    .moyenne(Critique.calculerMoyenne(90, 88, 92))
                     .build();
             critiqueRepository.save(critique1);
             logger.info("*** La critique 1 a été ajoutée à la BD ***");
@@ -54,6 +55,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(95)
                     .qualiteSonore(95)
                     .appreciation(95)
+                    .moyenne(Critique.calculerMoyenne(95, 95, 95))
                     .build();
             critiqueRepository.save(critique2);
             logger.info("*** La critique 2 a été ajoutée à la BD ***");
@@ -67,6 +69,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(80)
                     .qualiteSonore(85)
                     .appreciation(90)
+                    .moyenne(Critique.calculerMoyenne(80, 85, 90))
                     .build();
             critiqueRepository.save(critique3);
             logger.info("*** La critique 3 a été ajoutée à la BD ***");
@@ -80,6 +83,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(95)
                     .qualiteSonore(95)
                     .appreciation(95)
+                    .moyenne(Critique.calculerMoyenne(95, 95, 95))
                     .build();
             critiqueRepository.save(critique4);
             logger.info("*** La critique 4 a été ajoutée à la BD ***");
@@ -93,6 +97,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(30)
                     .qualiteSonore(90)
                     .appreciation(60)
+                    .moyenne(Critique.calculerMoyenne(30, 90, 60))
                     .build();
             critiqueRepository.save(critique5);
             logger.info("*** La critique 5 a été ajoutée à la BD ***");
@@ -106,6 +111,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(100)
                     .qualiteSonore(50)
                     .appreciation(75)
+                    .moyenne(Critique.calculerMoyenne(100, 50, 75))
                     .build();
             critiqueRepository.save(critique6);
             logger.info("*** La critique 6 a été ajoutée à la BD ***");
@@ -119,6 +125,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(75)
                     .qualiteSonore(70)
                     .appreciation(80)
+                    .moyenne(Critique.calculerMoyenne(75, 70, 80))
                     .build();
             critiqueRepository.save(critique7);
             logger.info("*** La critique 7 a été ajoutée à la BD ***");
@@ -132,6 +139,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(80)
                     .qualiteSonore(80)
                     .appreciation(80)
+                    .moyenne(Critique.calculerMoyenne(80, 80, 80))
                     .build();
             critiqueRepository.save(critique8);
             logger.info("*** La critique 8 a été ajoutée à la BD ***");
@@ -145,6 +153,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(79)
                     .qualiteSonore(79)
                     .appreciation(79)
+                    .moyenne(Critique.calculerMoyenne(79, 79, 79))
                     .build();
             critiqueRepository.save(critique9);
             logger.info("*** La critique 9 a été ajoutée à la BD ***");
@@ -158,6 +167,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(80)
                     .qualiteSonore(90)
                     .appreciation(100)
+                    .moyenne(Critique.calculerMoyenne(80, 90, 100))
                     .build();
             critiqueRepository.save(critique10);
             logger.info("*** La critique 10 a été ajoutée à la BD ***");
@@ -171,6 +181,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(50)
                     .qualiteSonore(50)
                     .appreciation(80)
+                    .moyenne(Critique.calculerMoyenne(50, 50, 80))
                     .build();
             critiqueRepository.save(critique11);
             logger.info("*** La critique 11 a été ajoutée à la BD ***");
@@ -184,6 +195,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(60)
                     .qualiteSonore(56)
                     .appreciation(85)
+                    .moyenne(Critique.calculerMoyenne(60, 56, 85))
                     .build();
             critiqueRepository.save(critique12);
             logger.info("*** La critique 12 a été ajoutée à la BD ***");
@@ -197,6 +209,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(100)
                     .qualiteSonore(90)
                     .appreciation(95)
+                    .moyenne(Critique.calculerMoyenne(100, 90, 95))
                     .build();
             critiqueRepository.save(critique13);
             logger.info("*** La critique 13 a été ajoutée à la BD ***");
@@ -210,6 +223,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(60)
                     .qualiteSonore(50)
                     .appreciation(70)
+                    .moyenne(Critique.calculerMoyenne(60, 50, 70))
                     .build();
             critiqueRepository.save(critique14);
             logger.info("*** La critique 14 a été ajoutée à la BD ***");
@@ -223,6 +237,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(83)
                     .qualiteSonore(83)
                     .appreciation(83)
+                    .moyenne(Critique.calculerMoyenne(83, 83, 83))
                     .build();
             critiqueRepository.save(critique15);
             logger.info("*** La critique 15 a été ajoutée à la BD ***");
@@ -236,6 +251,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(80)
                     .qualiteSonore(84)
                     .appreciation(82)
+                    .moyenne(Critique.calculerMoyenne(80, 84, 82))
                     .build();
             critiqueRepository.save(critique16);
             logger.info("*** La critique 16 a été ajoutée à la BD ***");
@@ -249,6 +265,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(89)
                     .qualiteSonore(79)
                     .appreciation(84)
+                    .moyenne(Critique.calculerMoyenne(89, 79, 84))
                     .build();
             critiqueRepository.save(critique17);
             logger.info("*** La critique 17 a été ajoutée à la BD ***");
@@ -262,6 +279,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(82)
                     .qualiteSonore(80)
                     .appreciation(78)
+                    .moyenne(Critique.calculerMoyenne(82, 80, 78))
                     .build();
             critiqueRepository.save(critique18);
             logger.info("*** La critique 18 a été ajoutée à la BD ***");
@@ -275,6 +293,7 @@ public class CritiqueController implements CommandLineRunner {
                     .qualiteVisuelle(81)
                     .qualiteSonore(79)
                     .appreciation(77)
+                    .moyenne(Critique.calculerMoyenne(81, 79, 77))
                     .build();
             critiqueRepository.save(critique19);
             logger.info("*** La critique 19 a été ajoutée à la BD ***");
@@ -289,16 +308,18 @@ public class CritiqueController implements CommandLineRunner {
     }
 
     @PostMapping("critique/post")
-    public void ajouteCritique(@RequestBody Critique critique) {
+    public Long ajouteCritique(@RequestBody Critique critique) {
         logger.info("********** Appel de ajouteCritique **********");
+        Long id = -1L;
         String message = critiqueValidateur.validateCritique(critique);
         if (message.equals("")) {
-            long id = critiqueRepository.save(critique).getId();
+            id = critiqueRepository.save(critique).getId();
             logger.info("*** Critique" + id + " sauvegardée ***");
         }
         else {
             throw new CritiqueInformationInvalidException(message);
         }
+        return id;
     }
 
     @DeleteMapping("/critique/deletebyid/{id}")
