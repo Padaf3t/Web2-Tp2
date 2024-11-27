@@ -1,4 +1,5 @@
 import {validerLongueurMaxString, validerNombrePositif, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
+import {ajouteProduits} from "./httpProduits.js";
 
 /**
  * Sauvegarde un nouveau produit ou met à jour un produit existant.
@@ -11,7 +12,7 @@ import {validerLongueurMaxString, validerNombrePositif, validerStringsRemplies} 
  * @param {function} setValeurFormulaire - Fonction pour mettre à jour les valeurs du formulaire.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur) {
+export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -99,11 +100,18 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur) {
  * @param {Object} nouveauProduit - Le nouveau produit à ajouter ou à modifier.
  * @returns {boolean} True si l'opération s'est déroulée avec succès, false sinon.
  */
-function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit) {
+async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit) {
     if (!enModification) {
 
         if (validerNumeroEIDR(listeProduits, nouveauProduit.EIDR)) {
-            setListeProduits((ancienneListe) => [nouveauProduit, ...ancienneListe]);
+            try{
+                const nouvelId = await ajouteProduits(nouveauProduit);
+                nouveauProduit.id = nouvelId;
+                setListeProduits((ancienneListe) => [nouveauProduit, ...ancienneListe]);
+            } catch (e) {
+                console.log('le nouveau produit n\'a pas pu être ajouté');
+                //setError({error: "error", message: e.message});
+            }
         } else {
             setMessageErreur("Le numéro EIDR " + nouveauProduit.EIDR + " existe déjà")
             return false;

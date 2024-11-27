@@ -4,11 +4,11 @@
  * @readonly
  */
 const SousCategorie = {
-    AVENTURE: "Aventure",
-    COMEDIE: "Comédie",
-    DRAME: "Drame",
-    GUERRE: "Guerre",
-    HORREUR: "Horreur"
+    AVENTURE: "AVENTURE",
+    COMEDIE: "COMEDIE",
+    DRAME: "DRAME",
+    GUERRE: "GUERRE",
+    HORREUR: "HORREUR"
 }
 
 export default SousCategorie;
