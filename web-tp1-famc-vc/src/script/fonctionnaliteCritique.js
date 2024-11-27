@@ -13,15 +13,14 @@ export async function ajouterNouvelleCritique(event, setListeCritiques, setMessa
 
     const formData = new FormData(event.target);
 
-    let nouvelleCritique = obtenirNouvelleCritique(formData);
+    let nouvelleCritiqueInfo = obtenirNouvelleCritique(formData);
 
-    if (!validerNouvelleCritique(formData, nouvelleCritique, setMessageErreur)) {
+    if (!validerNouvelleCritique(formData, nouvelleCritiqueInfo, setMessageErreur)) {
         return;
     }
     
     try {
-        const newId = await addCritique(nouvelleCritique);
-        nouvelleCritique.id = newId;
+        let nouvelleCritique = await addCritique(nouvelleCritiqueInfo);
         setListeCritiques((anciennesCritiques) => [nouvelleCritique, ...anciennesCritiques]);
         setMessageErreur("");
     }

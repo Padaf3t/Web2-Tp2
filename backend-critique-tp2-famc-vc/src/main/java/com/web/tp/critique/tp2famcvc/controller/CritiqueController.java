@@ -308,7 +308,7 @@ public class CritiqueController implements CommandLineRunner {
     }
 
     @PostMapping("critique/post")
-    public Long ajouteCritique(@RequestBody Critique critique) {
+    public Critique ajouteCritique(@RequestBody Critique critique) {
         logger.info("********** Appel de ajouteCritique **********");
         Long id = -1L;
         String message = critiqueValidateur.validateCritique(critique);
@@ -320,7 +320,7 @@ public class CritiqueController implements CommandLineRunner {
         else {
             throw new CritiqueInformationInvalidException(message);
         }
-        return id;
+        return critique;
     }
 
     @DeleteMapping("/critique/deletebyid/{id}")
