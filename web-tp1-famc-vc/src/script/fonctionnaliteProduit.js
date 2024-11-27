@@ -1,5 +1,5 @@
 import {validerLongueurMaxString, validerNombrePositif, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
-import {ajouteProduits, modifierProduitBackend} from "./httpProduits.js";
+import {ajouteProduits, deleteProduit, modifierProduitBackend} from "./httpProduits.js";
 
 /**
  * Sauvegarde un nouveau produit ou met à jour un produit existant.
@@ -194,23 +194,46 @@ export function modifierValeurEnumGenre(event, setValeurFormulaire) {
  * Supprime un produit et ses critiques associées.
  *
  * @param {Event} event - L'événement de suppression.
- * @param {number} id - L'ID du produit à supprimer.
+ * @param {number} eidr - L'EIDR du produit à supprimer.
  * @param {function} setListeProduits - Fonction pour mettre à jour la liste des produits.
  * @param {function} fonctCritiques - Fonction pour gérer les critiques.
  * @param {Array} listeCritiques - La liste des critiques.
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  */
-export function supprimerProduit(event, id, setListeProduits, fonctCritiques, listeCritiques, setListeCritiques) {
+export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCritiques, listeCritiques, setListeCritiques) {
     event.preventDefault();
+
+    try{
+        //await suppresiondescritiquedanslabd(eidr);
+        const isDelete = await deleteProduit(eidr);
+        if(isDelete){
+            setListeProduits(old => {
+                return old.filter(p => p.eidr !== eidr)});
+
+            // for (let i = 0; i < listeCritiques.length; i++) {
+            //     let critiqueTemp = listeCritiques[i];
+            //     if (critiqueTemp.eidr === eidr) {
+            //         let idCritique = critiqueTemp.id;
+            //         fonctCritiques.retirerCritique(event, idCritique, setListeCritiques)
+            //     }
+            //
+            // }
+        }
+    }
+    catch(e){
+        console.log(e + 'la nouvelle location n\a pas pu être ajoutée');
+        //setError({error: "error", message: e.message});
+    }
+
     for (let i = 0; i < listeCritiques.length; i++) {
         let critiqueTemp = listeCritiques[i];
-        if (critiqueTemp.eidr === id) {
+        if (critiqueTemp.eidr === eidr) {
             let idCritique = critiqueTemp.id;
             fonctCritiques.retirerCritique(event, idCritique, setListeCritiques)
         }
 
     }
-    setListeProduits(ancienneListe => ancienneListe.filter(produit => produit.eidr !== id));
+    //setListeProduits(ancienneListe => ancienneListe.filter(produit => produit.eidr !== eidr));
 }
 
 /**

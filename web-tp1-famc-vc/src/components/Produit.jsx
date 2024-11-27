@@ -18,7 +18,7 @@ import GestionnaireReferenceProduitsContext from "./contexts/GestionnaireReferen
  */
 export default function Produit({...produit}){
 
-    const {EIDR, nom, dateSortie, realisateur, genre, dureeMinute, paysOrigine, afficheSrc} = produit;
+    const {eidr, nom, dateSortie, realisateur, genre, dureeMinute, paysOrigine, afficheSrc} = produit;
     const refGestionnaire = useContext(GestionnaireReferenceProduitsContext);
 
     /**
@@ -26,7 +26,7 @@ export default function Produit({...produit}){
      * @param {Event} event - L'événement déclencheur.
      */
     const supprimerProduit = ((event) => {
-        refGestionnaire.current.supprimerProduit(event,EIDR);
+        refGestionnaire.current.supprimerProduit(event,eidr);
     })
 
     /**

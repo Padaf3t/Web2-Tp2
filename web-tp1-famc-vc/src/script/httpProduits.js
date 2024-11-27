@@ -39,9 +39,26 @@ export async function modifierProduitBackend(produit) {
     );
     if (!response.ok) {
         const raison = await response.json();
-        throw new Error('La location n\'a pas pu être créée ou modifiée' + raison.message);
+        throw new Error('Le produit n\'a pas pu être créée ou modifiée' + raison.message);
     }
     const resData = await response.json();
     return resData;
+}
+
+export async function deleteProduit(eidr) {
+    console.log(eidr)
+    let path = "http://localhost:8888/produits/delete/" + eidr;
+    const response = await fetch(path,
+        {
+            method: 'DELETE',
+            headers: {}
+        }
+    );
+    if (!response.ok) {
+        const raison = await response.json();
+        throw new Error('La location n\'a pas pu être supprimé' + raison.message);
+    }
+
+    return response.ok;
 }
 
