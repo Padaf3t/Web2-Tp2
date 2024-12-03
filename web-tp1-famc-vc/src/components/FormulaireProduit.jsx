@@ -21,7 +21,7 @@ export default function FormulaireProduit({valeurFormulaire, produitEnModificati
      * @param {Event} e - L'événement de soumission du formulaire.
      */
     function submitFormulaireProduit(e){
-        refGestionnaire.current.sauvegarderProduit(e, [messageErreur, setMessageErreur], setErreurPresente);
+        refGestionnaire.current.sauvegarderProduit(e, setMessageErreur, setErreurPresente);
     }
 
     /**

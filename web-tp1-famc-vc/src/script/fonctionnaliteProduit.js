@@ -19,13 +19,13 @@ import {useState} from "react";
  * @param {function} setValeurFormulaire - Fonction pour mettre à jour les valeurs du formulaire.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, messageErreurState, setErreurPresente, triggerRefetch,handleBoutonAfficherForm) {
+export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur, setErreurPresente, triggerRefetch,handleBoutonAfficherForm) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     let nouveauProduit = obtenirProduitDuFormulaire(formData);
 
-    if (!validerNouveauProduit(formData, nouveauProduit, messageErreurState, setErreurPresente)) {
+    if (!validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setErreurPresente)) {
         return;
     }
 
@@ -74,8 +74,7 @@ function obtenirProduitDuFormulaire(formData) {
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  * @returns {boolean} True si le produit est valide, false sinon.
  */
-function validerNouveauProduit(formData, nouveauProduit, messageErreurState, setErreurPresente) {
-    const [messageErreur, setMessageErreur] = messageErreurState;
+function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setErreurPresente) {
 
     let longueurMax = 256;
 
