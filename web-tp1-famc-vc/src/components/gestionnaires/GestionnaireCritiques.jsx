@@ -19,8 +19,8 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * @param {Event} event - L'événement déclencheur.
              * @param {Function} setMessageErreur - Fonction pour mettre à jour le message d'erreur.
              */
-            ajouterCritique: (event, setMessageErreur) => {
-                fonctionnaliteCritique.ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch, handleBoutonAfficherForm, setError);
+            ajouterCritique: (event, setMessageErreur,setErreurPresente) => {
+                fonctionnaliteCritique.ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, setErreurPresente, triggerCritiqueRefetch, handleBoutonAfficherForm, setError);
             },
             /**
              * Supprime la critique spécifiée.

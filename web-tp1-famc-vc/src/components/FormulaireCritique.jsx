@@ -11,16 +11,27 @@ import GestionnaireReferenceCritiquesContext from "./contexts/GestionnaireRefere
 export default function FormulaireCritique({listeProduits}) {
 
     const [messageErreur, setMessageErreur] = useState("");
+    const [erreurPresente, setErreurPresente] = useState({eQualiteVisuel: false, eQualiteSonore: false, eAppreciation: false})
+
     const refGestionnaire = useContext(GestionnaireReferenceCritiquesContext);
 
     const creerNouvelleCritique = (event) => {
-        refGestionnaire.current.ajouterCritique(event, setMessageErreur);
+        refGestionnaire.current.ajouterCritique(event, setMessageErreur, setErreurPresente);
     };
+
+    const getInputClass = (erreurKey) => erreurPresente[erreurKey] ? style.inputError : '';
 
     return (
         <div className={style.formulaireDiv}>
             <h4 className={style.titreFormulaire}>Ajouter une critique</h4>
-            <p>{messageErreur}</p>
+            <p>
+                {messageErreur.split('\n').map((line, index) => (
+                    <span key={index}>
+                        {line}
+                        <br/>
+                    </span>
+                ))}
+            </p>
             <form onSubmit={creerNouvelleCritique}>
 
                 <label htmlFor="nomFilm">Nom du film</label><br/>

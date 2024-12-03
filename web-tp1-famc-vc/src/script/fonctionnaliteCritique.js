@@ -1,5 +1,6 @@
 import {validerNote0A100, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
 import {addCritique, deleteCritiqueByEidr, deleteCritiqueById} from "./httpCritiques.js";
+import {useState} from "react";
 
 /**
  * Ajoute une nouvelle critique à la liste.
@@ -8,16 +9,18 @@ import {addCritique, deleteCritiqueByEidr, deleteCritiqueById} from "./httpCriti
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch, handleBoutonAfficherForm, setError) {
+export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, setErreurPresente, triggerCritiqueRefetch, handleBoutonAfficherForm, setError) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
 
     let nouvelleCritiqueInfo = obtenirNouvelleCritique(formData);
 
-    if (!validerNouvelleCritique(formData, nouvelleCritiqueInfo, setMessageErreur)) {
+    if (!validerNouvelleCritique(formData, nouvelleCritiqueInfo, setMessageErreur,setErreurPresente)) {
         return;
     }
+
+    setErreurPresente({eQualiteVisuel: false, eQualiteSonore: false, eAppreciation: false});
     
     try {
         let nouvelleCritique = await addCritique(nouvelleCritiqueInfo);
@@ -41,19 +44,53 @@ export async function ajouterNouvelleCritique(event, setListeCritiques, setMessa
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  * @returns {boolean} - True si la critique est valide, false sinon.
  */
-function validerNouvelleCritique(formData, nouvelleCritique, setMessageErreur) {
+function validerNouvelleCritique(formData, nouvelleCritique, setMessageErreur,setErreurPresente) {
 
-    if (!validerStringsRemplies(formData.get("qualiteSonore"), formData.get("qualiteVisuelle"), formData.get("appreciation"))) {
-        setMessageErreur("Tous les champs doivent être remplis");
-        return false;
+    let erreurPresente = false;
+    let valide = true;
+
+    if (!validerStringsRemplies(formData.get("qualiteVisuelle"))) {
+        erreurPresente = true;
+        setErreurPresente({eQualiteVisuel: true})
     }
 
-    if (!validerNote0A100(nouvelleCritique.qualiteVisuelle, nouvelleCritique.qualiteSonore, nouvelleCritique.appreciation)) {
-        setMessageErreur("Les notes doivent être entre 0 et 100");
-        return false;
+    if (!validerStringsRemplies(formData.get("qualiteSonore"))) {
+        erreurPresente = true;
+        setErreurPresente({eQualiteSonore: true})
     }
 
-    return true;
+    if (!validerStringsRemplies(formData.get("appreciation"))) {
+        erreurPresente = true;
+        setErreurPresente({eAppreciation: true})
+    }
+
+    if(erreurPresente){
+        setMessageErreur((old) => old + "Tous les champs doivent être remplis\n");
+        valide = false;
+        erreurPresente = false;
+    }
+
+    if (!validerNote0A100(nouvelleCritique.qualiteVisuelle)) {
+        erreurPresente = true;
+        setErreurPresente({eQualiteVisuel: true})
+    }
+
+    if (!validerNote0A100(nouvelleCritique.qualiteSonore)) {
+        erreurPresente = true;
+        setErreurPresente({eQualiteSonore: true})
+    }
+
+    if (!validerNote0A100(nouvelleCritique.appreciation)) {
+        erreurPresente = true;
+        setErreurPresente({eAppreciation: true})
+    }
+
+    if(erreurPresente){
+        valide = false;
+        setMessageErreur((old) => old + "Les notes doivent être entre 0 et 100\n");
+    }
+
+    return valide;
 }
 
 /**
