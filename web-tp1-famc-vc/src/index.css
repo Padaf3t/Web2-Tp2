@@ -1,10 +1,42 @@
+:root {
+  --main-bg-color: #DE6EF0;
+  --bg-card-color: #FFE1B9;
+  --main-btn-color: #B1F06E;
+  --secondary-color: #6ECEF0;
+  --accent-color: #967B9B;
+  --main-text-color: #000;
+  --card-text-color: #000;
+  --main-btn-text-color: #000;
+  --secondary-text-color: #000;
+  --accent-contour-color: #000;
+  --bg-form-input-color: #FFF;
+  --form-field-text-color: #000;
+  --form-disabled-input-color: #F0F0F0;
+}
+
+.dark-theme {
+  --main-bg-color: #000;
+  --bg-card-color: #000;
+  --main-btn-color: #000;
+  --secondary-color: #000;
+  --accent-color: #FFF;
+  --main-text-color: #DE6EF0;
+  --card-text-color: #FFE1B9;
+  --main-btn-text-color: #B1F06E;
+  --secondary-text-color: #6ECEF0;
+  --accent-contour-color: #967B9B;
+  --bg-form-input-color: #000;
+  --form-field-text-color: #FFF;
+  --form-disabled-input-color: #0F0F0F;
+}
+
 body {
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   font-family: "Comic Sans MS", serif;
-  background-color: #DE6EF0;
+  background-color: var(--main-bg-color);
   font-size: 16px;
 }
 
@@ -15,26 +47,31 @@ body {
 h1 {
   font-size: 5em;
   line-height: 1.1;
-  color: #DE6EF0;
+  color: var(--main-bg-color);
   font-family: Impact, serif;
   -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-color: var(--main-text-color);
+}
+
+h2 {
+  color: var(--main-text-color);
 }
 
 button {
   border-radius: 8px;
-  border: 3px solid black;
+  border: 3px solid var(--main-btn-text-color);
+  color: var(--main-btn-text-color);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #B1F06E;
+  background-color: var(--main-btn-color);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 
 button:hover {
-  border-color: #967B9B;
+  border-color: var(--accent-color);
 }
 
 button:focus,
@@ -43,11 +80,11 @@ button:focus-visible {
 }
 
 .titreButtonSelected {
-  background-color: #B1F06E;
+  background-color: var(--main-btn-color);
 }
 
 .titreButtonUnselected {
-  background-color: #6ECEF0;
+  background-color: var(--secondary-color);
 }
 
 #titresDiv button {
@@ -63,11 +100,12 @@ button:focus-visible {
 }
 
 .elementDiv {
-  background-color: #FFE1B9;
+  background-color: var(--bg-card-color);
   position: relative;
   border-radius: 20px;
   margin: 20px;
-  border: 3px solid black;
+  border: 3px solid var(--card-text-color);
+  color: var(--card-text-color);
   width: 250px;
   display: block;
 }
@@ -80,7 +118,7 @@ button:focus-visible {
 
 .elementDiv img {
   border-radius: 10px;
-  border:3px solid black;
+  border:3px solid var(--card-text-color);
   width:125px;
   height:125px;
 }
@@ -91,13 +129,3 @@ button:focus-visible {
   justify-content: center;
   margin-bottom: 50px;
 }
-
-
-
-/*.paletteCouleurs {*/
-/*  background-color: #DE6EF0;*/
-/*  background-color: #967B9B;*/
-/*  background-color: #B1F06E;*/
-/*  background-color: #FFE1B9;*/
-/*  background-color: #6ECEF0;*/
-/*}*/

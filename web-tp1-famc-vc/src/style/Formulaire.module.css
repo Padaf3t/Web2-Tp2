@@ -1,14 +1,18 @@
 .formulaireDiv{
-    background-color: #6ECEF0;
+    background-color: var(--secondary-color);
     max-width: 100%;
     width: 600px;
     min-width: min-content;
     display:inline-block;
     align-items: center;
     border-radius: 20px;
-    border: black 3px solid;
+    border: 3px solid var(--form-field-text-color);
     padding: 20px;
     overflow: hidden;
+}
+
+.formulaireDiv label {
+    color: var(--secondary-text-color);
 }
 
 .formulaireDiv select, .formulaireDiv input, .formulaireDiv button {
@@ -16,12 +20,12 @@
 }
 
 .titreFormulaire{
-    color: #B1F06E;
+    color: var(--main-btn-color);
     font-family: Impact, serif;
     font-size: 3em;
     line-height: 1.1;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: var(--main-btn-text-color);
 }
 
 .formulaireDiv button{
@@ -30,10 +34,10 @@
 
 .formulaireDiv input, .formulaireDiv select{
     border-radius: 5px;
-    border: black 2px solid;
+    border: 2px solid var(--form-field-text-color);
 }
 
 .inputGrise{
-    background-color: #F0F0F0;
+    background-color: var(--form-disabled-input-color);
     opacity: 50%
 }
