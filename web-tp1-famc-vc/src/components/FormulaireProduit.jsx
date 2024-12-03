@@ -13,6 +13,7 @@ import style from "../style/Formulaire.module.css";
 export default function FormulaireProduit({valeurFormulaire, produitEnModification}){
 
     const [messageErreur, setMessageErreur] = useState("");
+    const [erreurPresente, setErreurPresente] = useState({eEidr: false, eNom: false, eDate: false, eRealisateur: false, eDuree: false, ePays: false, eSrc: false})
     const refGestionnaire = useContext(GestionnaireReferenceProduitsContext);
 
     /**
@@ -20,7 +21,7 @@ export default function FormulaireProduit({valeurFormulaire, produitEnModificati
      * @param {Event} e - L'événement de soumission du formulaire.
      */
     function submitFormulaireProduit(e){
-        refGestionnaire.current.sauvegarderProduit(e, setMessageErreur);
+        refGestionnaire.current.sauvegarderProduit(e, [messageErreur, setMessageErreur], setErreurPresente);
     }
 
     /**
@@ -39,22 +40,32 @@ export default function FormulaireProduit({valeurFormulaire, produitEnModificati
         refGestionnaire.current.sortirModeModifierProduit(e);
     }
 
+    const getInputClass = (erreurKey) => erreurPresente[erreurKey] ? style.inputError : '';
+
     let enModificationClassGrise = produitEnModification ? style.inputGrise : '';
 
     return (
         <div className={style.formulaireDiv}>
             <h4 className={style.titreFormulaire}>{valeurFormulaire.titreFormulaire}</h4>
-            <p>{messageErreur}</p>
+            <p>
+                {messageErreur.split('\n').map((line, index) => (
+                    <span key={index}>
+                        {line}
+                        <br/>
+                    </span>
+                ))}
+            </p>
             <form onSubmit={submitFormulaireProduit}>
                 <label htmlFor="id">EIDR:</label><br/>
-                <input type="number" id="id" name="id" readOnly={produitEnModification} className={enModificationClassGrise}
+                <input type="number" id="id" name="id" readOnly={produitEnModification}
+                       className={`${enModificationClassGrise} ${getInputClass('eEidr')}`}
                        defaultValue={valeurFormulaire.eidr}/><br/>
                 <label htmlFor="nom">Nom du film:</label><br/>
-                <input type="text" id="nom" name="nom" defaultValue={valeurFormulaire.nom} readOnly={produitEnModification} className={enModificationClassGrise}/><br/>
+                <input type="text" id="nom" name="nom" defaultValue={valeurFormulaire.nom} readOnly={produitEnModification} className={`${enModificationClassGrise} ${getInputClass('eNom')}`}/><br/>
                 <label htmlFor="date">Date de sortie:</label><br/>
-                <input type="date" id="date" name="date" defaultValue={valeurFormulaire.dateSortie}/><br/>
+                <input type="date" id="date" name="date" defaultValue={valeurFormulaire.dateSortie} className={getInputClass('eDate')}/><br/>
                 <label htmlFor="realisateur">Réalisateur:</label><br/>
-                <input type="text" id="realisateur" name="realisateur"
+                <input type="text" id="realisateur" name="realisateur" className={getInputClass('eRealisateur')}
                        defaultValue={valeurFormulaire.realisateur}/><br/>
                 <label htmlFor="genre">Genre:</label><br/>
                 <select name="genre" id="genre" value={valeurFormulaire.genre} onChange={modifierEnumGenre}>
@@ -63,13 +74,14 @@ export default function FormulaireProduit({valeurFormulaire, produitEnModificati
                     ))}
                 </select><br/>
                 <label htmlFor="dureeMinute">Durée en minutes:</label><br/>
-                <input type="number" id="dureeMinute" name="dureeMinute"
+                <input type="number" id="dureeMinute" name="dureeMinute" className={getInputClass('eDuree')}
                        defaultValue={valeurFormulaire.dureeMinute}/><br/>
                 <label htmlFor="paysOrigine">Pays d'origine:</label><br/>
-                <input type="text" id="paysOrigine" name="paysOrigine"
+                <input type="text" id="paysOrigine" name="paysOrigine" className={getInputClass('ePays')}
                        defaultValue={valeurFormulaire.paysOrigine}/><br/>
                 <label htmlFor="src">Source de l'image:</label><br/>
-                <input type="text" id="src" name="src" defaultValue={valeurFormulaire.afficheSrc}/><br/>
+                <input type="text" id="src" name="src" className={getInputClass('eSrc')}
+                       defaultValue={valeurFormulaire.afficheSrc}/><br/>
                 <button type='submit'>{valeurFormulaire.titreBouton}</button>
                 {produitEnModification && <button onClick={annulerModification}>Annuler la modification</button>}
             </form>

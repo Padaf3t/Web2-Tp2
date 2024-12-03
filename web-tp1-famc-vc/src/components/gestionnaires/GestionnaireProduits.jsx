@@ -23,8 +23,8 @@ const GestionnaireProduits = forwardRef((props, ref) => {
              * @param {Event} event - L'événement déclencheur.
              * @param {Function} setMessageErreur - Fonction pour mettre à jour le message d'erreur.
              */
-            sauvegarderProduit: (event, setMessageErreur) => {
-                fonctionnaliteProduit.sauvegarderProduit(event, setListeProduits, listeProduits, produitEnModification, setProduitEnModification, setValeurFormulaire, setMessageErreur, triggerProduitRefetch,handleBoutonAfficherForm, setError)
+            sauvegarderProduit: (event, messageErreurState, setErreurPresente) => {
+                fonctionnaliteProduit.sauvegarderProduit(event, setListeProduits, listeProduits, produitEnModification, setProduitEnModification, setValeurFormulaire, messageErreurState, setErreurPresente, triggerProduitRefetch,handleBoutonAfficherForm, setError)
             },
             /**
              * Met le produit spécifié en mode de modification.

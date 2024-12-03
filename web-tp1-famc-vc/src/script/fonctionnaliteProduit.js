@@ -1,6 +1,12 @@
-import {validerLongueurMaxString, validerNombrePositif, validerStringsRemplies} from "./fonctionnaliteUtilitaire.js";
+import {
+    validerDateAnterieur,
+    validerLongueurMaxString,
+    validerNombrePositif,
+    validerStringsRemplies
+} from "./fonctionnaliteUtilitaire.js";
 import {ajouteProduits, deleteProduit, modifierProduitBackend} from "./httpProduits.js";
 import {retirerCritiquesParEidr} from "./fonctionnaliteCritique.js";
+import {useState} from "react";
 
 /**
  * Sauvegarde un nouveau produit ou met à jour un produit existant.
@@ -13,13 +19,13 @@ import {retirerCritiquesParEidr} from "./fonctionnaliteCritique.js";
  * @param {function} setValeurFormulaire - Fonction pour mettre à jour les valeurs du formulaire.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur, triggerRefetch,handleBoutonAfficherForm) {
+export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, messageErreurState, setErreurPresente, triggerRefetch,handleBoutonAfficherForm) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     let nouveauProduit = obtenirProduitDuFormulaire(formData);
 
-    if (!validerNouveauProduit(formData, nouveauProduit, setMessageErreur)) {
+    if (!validerNouveauProduit(formData, nouveauProduit, messageErreurState, setErreurPresente)) {
         return;
     }
 
@@ -68,22 +74,94 @@ function obtenirProduitDuFormulaire(formData) {
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  * @returns {boolean} True si le produit est valide, false sinon.
  */
-function validerNouveauProduit(formData, nouveauProduit, setMessageErreur) {
+function validerNouveauProduit(formData, nouveauProduit, messageErreurState, setErreurPresente) {
+    const [messageErreur, setMessageErreur] = messageErreurState;
+
     let longueurMax = 256;
 
-    if (!validerStringsRemplies(formData.get("id"), nouveauProduit.nom, nouveauProduit.dateSortie, nouveauProduit.realisateur, nouveauProduit.dureeMinute, nouveauProduit.paysOrigine, nouveauProduit.afficheSrc)) {
-        setMessageErreur("Tous les champs doivent être remplis");
-        return false;
+    let erreurPresente = false;
+    let valide = true;
+    setMessageErreur(() => "");
+
+    if (!validerStringsRemplies(formData.get("id"))) {
+        erreurPresente = true;
+        setErreurPresente({eEidr: true});
     }
-    if (!validerLongueurMaxString(longueurMax, nouveauProduit.nom, nouveauProduit.realisateur, nouveauProduit.paysOrigine, nouveauProduit.afficheSrc)) {
-        setMessageErreur("Les champs de texte doivent avoir moins de " + longueurMax + "caractères");
-        return false;
+
+    if (!validerStringsRemplies(nouveauProduit.nom)) {
+        erreurPresente = true;
+        setErreurPresente({eNom: true});
     }
-    if (!validerNombrePositif(Number(formData.get("id")), Number(formData.get("dureeMinute")))) {
-        setMessageErreur("Les champs de nombres doivent être positifs");
-        return false;
+
+    if (!validerStringsRemplies(nouveauProduit.dateSortie)) {
+        erreurPresente = true;
+        setErreurPresente({eDate: true});
     }
-    return true;
+
+    if (!validerStringsRemplies(nouveauProduit.realisateur)) {
+        erreurPresente = true;
+        setErreurPresente({eRealisateur: true});
+    }
+
+    if (!validerStringsRemplies(nouveauProduit.dureeMinute)) {
+        erreurPresente = true;
+        setErreurPresente({eDuree: true});
+    }
+
+    if (!validerStringsRemplies(nouveauProduit.paysOrigine)) {
+        erreurPresente = true;
+        setErreurPresente({ePays: true});
+    }
+
+    if (!validerStringsRemplies(nouveauProduit.afficheSrc)) {
+        setErreurPresente({eSrc: true});
+        erreurPresente = true;
+    }
+
+    if(erreurPresente){
+        setMessageErreur((old) => old + "Tous les champs doivent être remplis\n");
+        valide = false;
+        erreurPresente = false;
+    }
+
+    if (!validerLongueurMaxString(longueurMax, nouveauProduit.nom)) {
+        setErreurPresente({eNom: true});
+        erreurPresente = true;
+    }
+
+    if (!validerLongueurMaxString(longueurMax, nouveauProduit.realisateur)) {
+        erreurPresente = true;
+        setErreurPresente({eRealisateur: true});
+    }
+
+    if (!validerLongueurMaxString(longueurMax, nouveauProduit.paysOrigine)) {
+        erreurPresente = true;
+        setErreurPresente({ePays: true});
+    }
+
+    if (!validerLongueurMaxString(longueurMax, nouveauProduit.afficheSrc)) {
+        erreurPresente = true;
+        setErreurPresente({eSrc: true});
+    }
+
+    if(erreurPresente){
+        setMessageErreur((old) => old + "Les champs de texte doivent avoir moins de " + longueurMax + "caractères\n");
+        valide = false;
+    }
+
+    if (!validerNombrePositif(Number(formData.get("dureeMinute")))) {
+        setErreurPresente({eDuree: true});
+        setMessageErreur((old) => old + "Les champs de nombre doivent être positif\n");
+        valide = false;
+    }
+
+    if(!validerDateAnterieur(date)){
+        setErreurPresente({eDate: true});
+        setMessageErreur((old) => old + "La date doit être dans le passé ou aujourd'hui\n");
+        valide = false;
+    }
+
+    return valide;
 }
 
 /**

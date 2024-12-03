@@ -58,3 +58,12 @@ export function validerLongueurMaxString(longueurMax,...listeItems) {
     }
     return true;
 }
+
+export function validerDateAnterieur(date) {
+    // Create a new Date object for today's date
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);  // Set the time to 00:00:00 to ignore the time part during comparison
+
+    // Check if the provided date is before or equal to today
+    return new Date(date) <= today;
+}
