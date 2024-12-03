@@ -8,7 +8,7 @@ import {addCritique, deleteCritiqueByEidr, deleteCritiqueById} from "./httpCriti
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
  */
-export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch, handleBoutonAfficherForm) {
+export async function ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch, handleBoutonAfficherForm, setError) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -28,6 +28,7 @@ export async function ajouterNouvelleCritique(event, setListeCritiques, setMessa
     }
     catch (e) {
         console.log(e);
+        setError({error: "error", message: e.message});
     }
     event.target.reset();
 }
@@ -81,7 +82,7 @@ function obtenirNouvelleCritique(formData) {
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  * @param triggerCritiqueRefetch
  */
-export async function retirerCritiqueParId(event, id, setListeCritiques, triggerCritiqueRefetch) {
+export async function retirerCritiqueParId(event, id, setListeCritiques, triggerCritiqueRefetch, setError) {
     event.preventDefault();
 
     try {
@@ -91,12 +92,13 @@ export async function retirerCritiqueParId(event, id, setListeCritiques, trigger
     }
     catch (e) {
         console.log('La destruction de ' + id + ' n\'a pas fonctionné');
+        setError({error: "error", message: e.message});
     }
 
 
 }
 
-export async function retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch) {
+export async function retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch, setError) {
     event.preventDefault();
 
     try {
@@ -106,6 +108,7 @@ export async function retirerCritiquesParEidr(event, eidr, setListeCritiques, tr
     }
     catch (e) {
         console.log(e + "La destruction des critiques avec l'eidr " + id + " n'a pas fonctionné");
+        setError({error: "error", message: e.message});
     }
 }
 

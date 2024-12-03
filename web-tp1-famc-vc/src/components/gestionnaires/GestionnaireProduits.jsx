@@ -10,7 +10,7 @@ import {forwardRef, useImperativeHandle} from "react";
 const GestionnaireProduits = forwardRef((props, ref) => {
     const{listeProduits, setListeProduits, setListeCritiques,listeCritiques,produitEnModification,
         setProduitEnModification, setValeurFormulaire, lorsquePret, fonctionnaliteProduit, fonctionnaliteCritique,
-        triggerProduitRefetch, triggerCritiqueRefetch, handleBoutonAfficherForm} = props;
+        triggerProduitRefetch, triggerCritiqueRefetch, handleBoutonAfficherForm,setError} = props;
 
     useImperativeHandle(ref, () => {
         //S'assure que le composant est prêt et force un rerendu si tel est le cas
@@ -24,7 +24,7 @@ const GestionnaireProduits = forwardRef((props, ref) => {
              * @param {Function} setMessageErreur - Fonction pour mettre à jour le message d'erreur.
              */
             sauvegarderProduit: (event, setMessageErreur) => {
-                fonctionnaliteProduit.sauvegarderProduit(event, setListeProduits, listeProduits, produitEnModification, setProduitEnModification, setValeurFormulaire, setMessageErreur, triggerProduitRefetch,handleBoutonAfficherForm)
+                fonctionnaliteProduit.sauvegarderProduit(event, setListeProduits, listeProduits, produitEnModification, setProduitEnModification, setValeurFormulaire, setMessageErreur, triggerProduitRefetch,handleBoutonAfficherForm, setError)
             },
             /**
              * Met le produit spécifié en mode de modification.
@@ -53,7 +53,7 @@ const GestionnaireProduits = forwardRef((props, ref) => {
              * @param {number} EIDR - L'identifiant du produit à supprimer.
              */
             supprimerProduit: (event, eidr) => {
-                fonctionnaliteProduit.supprimerUnProduit(event, eidr, setListeProduits, fonctionnaliteCritique, listeCritiques, setListeCritiques, triggerProduitRefetch, triggerCritiqueRefetch);
+                fonctionnaliteProduit.supprimerUnProduit(event, eidr, setListeProduits, fonctionnaliteCritique, listeCritiques, setListeCritiques, triggerProduitRefetch, triggerCritiqueRefetch, setError);
             },
 
         }

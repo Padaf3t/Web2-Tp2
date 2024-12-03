@@ -10,7 +10,8 @@ import GestionnaireReferenceProduitsContext from "./components/contexts/Gestionn
 import GestionnaireCritiques from "./components/gestionnaires/GestionnaireCritiques.jsx";
 import GestionnaireStatistiques from "./components/gestionnaires/GestionnaireStatistiques.jsx";
 import GestionnaireReferenceCritiquesContext from "./components/contexts/GestionnaireReferenceCritiquesContext.jsx";
-import GestionnaireReferenceStatistiquesContext from "./components/contexts/GestionnaireReferenceStatistiquesContext.jsx";
+import GestionnaireReferenceStatistiquesContext
+    from "./components/contexts/GestionnaireReferenceStatistiquesContext.jsx";
 import MoyenneCategorie from "./components/MoyenneCategorie.jsx";
 import * as fonctionnaliteStatistique from "./script/fonctionnaliteStatistiques.js";
 import * as fonctionnaliteCritique from "./script/fonctionnaliteCritique.js";
@@ -19,12 +20,9 @@ import style from './style/Statistique.module.css'
 import {fetchAvailableProduitsAsync} from "./script/httpProduits.js";
 import {fetchAvailableCritiquesAsync} from "./script/httpCritiques.js";
 import SectionTitres from "./components/SectionTitres.jsx";
+import {Alert} from "react-bootstrap";
 
 function App() {
-
-    //Accès aux données
-    //let critiquesStorage = localStorage.getItem("critiquesStorage") !== null ? JSON.parse(localStorage.getItem("critiquesStorage")) : critiques;
-    //let produitsStorage = localStorage.getItem("produitsStorage") !== null ? JSON.parse(localStorage.getItem("produitsStorage")) : films;
 
     //State
     const [listeProduits, setListeProduits] = useState([]);
@@ -63,7 +61,6 @@ function App() {
     };
 
     const handleBoutonProduit = () => {
-
         setIsShowingProduit(true);
         setIsShowingCritique(false);
         setIsShowingStatistique(false);
@@ -104,6 +101,7 @@ function App() {
                 setIsFetching(false);
             }
         }
+
         fetchData();
 
     }, [fetchAvailableProduitsAsync, triggerProduitRefetch]);
@@ -120,6 +118,7 @@ function App() {
                 setIsFetching(false);
             }
         }
+
         fetchData();
 
     }, [fetchAvailableCritiquesAsync, triggerCritiqueRefetch]);
@@ -139,14 +138,16 @@ function App() {
                                   fonctionnaliteProduit={fonctionnaliteProduit}
                                   triggerProduitRefetch={handleProduitRefetch}
                                   triggerCritiqueRefetch={handleCritiqueRefetch}
-                                  handleBoutonAfficherForm={handleBoutonAfficherForm}/>
+                                  handleBoutonAfficherForm={handleBoutonAfficherForm}
+                                  setError={setError}/>
             <GestionnaireCritiques ref={gestionnaireCritiquesRef}
                                    listeProduits={listeProduits}
                                    setListeCritiques={setListeCritiques}
                                    lorsquePret={gestionnaireEstPret}
                                    fonctionnaliteCritique={fonctionnaliteCritique}
                                    triggerCritiqueRefetch={handleCritiqueRefetch}
-                                   handleBoutonAfficherForm={handleBoutonAfficherForm}/>
+                                   handleBoutonAfficherForm={handleBoutonAfficherForm}
+                                   setError={setError}/>
             <GestionnaireStatistiques ref={gestionnaireStatistiquesRef}
                                       listeProduits={listeProduits}
                                       listeCritiques={listeCritiques}
@@ -163,47 +164,52 @@ function App() {
                            isShowingCritique={isShowingCritique}
                            produitEnModification={produitEnModification}/>
 
-            {isShowingProduit &&
-            <GestionnaireReferenceProduitsContext.Provider value={gestionnaireProduitsRef}>
-                <SectionProduit listeProduits={listeProduits} produitEnModification={produitEnModification} isShowingForm={isShowingForm}>
-                    {isShowingForm &&
-                    <FormulaireProduit valeurFormulaire={valeurFormulaire}
-                                       produitEnModification={produitEnModification}/>
-                    }
-                </SectionProduit>
-            </GestionnaireReferenceProduitsContext.Provider>
-            }
-
-            {isShowingCritique &&
-            <GestionnaireReferenceCritiquesContext.Provider value={gestionnaireCritiquesRef}>
-                <SectionCritiques listeCritiques={listeCritiques} listeProduits={listeProduits} isShowingForm={isShowingForm}>
-                    {isShowingForm &&
-                    <FormulaireCritique listeProduits={listeProduits}/>
-                    }
-                </SectionCritiques>
-            </GestionnaireReferenceCritiquesContext.Provider>
-            }
-
-            {isShowingStatistique &&
-            <GestionnaireReferenceStatistiquesContext.Provider value={gestionnaireStatistiquesRef}>
-                <SectionStatistique listeProduits={listeProduits} listeCritiques={listeCritiques}>
-                    <h2 className={style.soustitre}>Moyenne des notes par genre</h2>
-                    <div className={style.divExterne}>
-                        <div className={style.divMedian}>
-                            <div className={style.divCategorie}>
-                                {mapCategorieProduit.map(({genre, films}) => (
-                                    <MoyenneCategorie
-                                        key={genre}
-                                        listeProduitGenre={films}
-                                        titreGenre={genre}
-                                    />
-                                ))}
+            {error.error === "none" ? (
+            isShowingProduit &&
+                <GestionnaireReferenceProduitsContext.Provider value={gestionnaireProduitsRef}>
+                    <SectionProduit listeProduits={listeProduits} produitEnModification={produitEnModification}
+                                    isShowingForm={isShowingForm}>
+                        {isShowingForm &&
+                            <FormulaireProduit valeurFormulaire={valeurFormulaire}
+                                               produitEnModification={produitEnModification}/>
+                        }
+                    </SectionProduit>
+                </GestionnaireReferenceProduitsContext.Provider>)
+            ||
+            (isShowingCritique &&
+                <GestionnaireReferenceCritiquesContext.Provider value={gestionnaireCritiquesRef}>
+                    <SectionCritiques listeCritiques={listeCritiques} listeProduits={listeProduits}
+                                      isShowingForm={isShowingForm}>
+                        {isShowingForm &&
+                            <FormulaireCritique listeProduits={listeProduits}/>
+                        }
+                    </SectionCritiques>
+                </GestionnaireReferenceCritiquesContext.Provider>)
+            ||
+            (isShowingStatistique &&
+                <GestionnaireReferenceStatistiquesContext.Provider value={gestionnaireStatistiquesRef}>
+                    <SectionStatistique listeProduits={listeProduits} listeCritiques={listeCritiques}>
+                        <h2 className={style.soustitre}>Moyenne des notes par genre</h2>
+                        <div className={style.divExterne}>
+                            <div className={style.divMedian}>
+                                <div className={style.divCategorie}>
+                                    {mapCategorieProduit.map(({genre, films}) => (
+                                        <MoyenneCategorie
+                                            key={genre}
+                                            listeProduitGenre={films}
+                                            titreGenre={genre}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </SectionStatistique>
-
-            </GestionnaireReferenceStatistiquesContext.Provider>
+                    </SectionStatistique>
+                </GestionnaireReferenceStatistiquesContext.Provider>)
+            :
+                <Alert severity="error">
+                    <Alert.Heading>Error</Alert.Heading>
+                    <p>{error.message}</p>
+                </Alert>
             }
         </>
     )

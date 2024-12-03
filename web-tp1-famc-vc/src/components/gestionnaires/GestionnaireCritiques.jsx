@@ -7,7 +7,7 @@ import {forwardRef, useImperativeHandle} from "react";
  * @returns {JSX.Element} Le composant rendu.
  */
 const GestionnaireCritiques = forwardRef((props, ref) => {
-    const{listeProduits, setListeCritiques, lorsquePret, fonctionnaliteCritique, triggerCritiqueRefetch,handleBoutonAfficherForm} = props;
+    const{listeProduits, setListeCritiques, lorsquePret, fonctionnaliteCritique, triggerCritiqueRefetch,handleBoutonAfficherForm, setError} = props;
     useImperativeHandle(ref, () => {
         //S'assure que le composant est prêt et force un rerendu si tel est le cas
         if (lorsquePret) {
@@ -20,7 +20,7 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * @param {Function} setMessageErreur - Fonction pour mettre à jour le message d'erreur.
              */
             ajouterCritique: (event, setMessageErreur) => {
-                fonctionnaliteCritique.ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch, handleBoutonAfficherForm);
+                fonctionnaliteCritique.ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, triggerCritiqueRefetch, handleBoutonAfficherForm, setError);
             },
             /**
              * Supprime la critique spécifiée.
@@ -28,7 +28,7 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * @param {number} id - L'identifiant de la critique à supprimer.
              */
             supprimerCritiqueParId: (event, id) => {
-                fonctionnaliteCritique.retirerCritiqueParId(event, id, setListeCritiques, triggerCritiqueRefetch);
+                fonctionnaliteCritique.retirerCritiqueParId(event, id, setListeCritiques, triggerCritiqueRefetch, setError);
             },
             /**
              * Supprime la critique spécifiée.
@@ -36,7 +36,7 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * @param {number} id - L'identifiant de la critique à supprimer.
              */
             supprimerCritiquesParEidr: (event, eidr) => {
-                fonctionnaliteCritique.retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch);
+                fonctionnaliteCritique.retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch, setError);
             },
             /**
              * Obtient le nom du produit associé à une critique spécifiée.

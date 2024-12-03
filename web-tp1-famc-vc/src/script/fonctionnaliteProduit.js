@@ -101,7 +101,7 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur) {
  * @param {Object} nouveauProduit - Le nouveau produit à ajouter ou à modifier.
  * @returns {boolean} True si l'opération s'est déroulée avec succès, false sinon.
  */
-async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit,triggerProduitRefetch,handleBoutonAfficherForm) {
+async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit, triggerProduitRefetch, handleBoutonAfficherForm, setError) {
     if (!enModification) {
         if (validerNumeroEIDR(listeProduits, nouveauProduit.eidr)) {
             try{
@@ -112,7 +112,7 @@ async function ModifierListeProduit(enModification, setEnModification, listeProd
                 handleBoutonAfficherForm();
             } catch (e) {
                 console.log(e + 'le nouveau produit n\'a pas pu être ajouté');
-                //setError({error: "error", message: e.message});
+                setError({error: "error", message: e.message});
             }
         } else {
             setMessageErreur("Le numéro EIDR " + nouveauProduit.eidr + " existe déjà")
@@ -131,7 +131,7 @@ async function ModifierListeProduit(enModification, setEnModification, listeProd
             setValeurFormulaire(() => getValeurFormulaireVide())
         } catch (e) {
             console.log('la modification du produit n\'a pas pu être effectué');
-            //setError({error: "error", message: e.message});
+            setError({error: "error", message: e.message});
         }
 
 
@@ -203,7 +203,7 @@ export function modifierValeurEnumGenre(event, setValeurFormulaire) {
  * @param {Array} listeCritiques - La liste des critiques.
  * @param {function} setListeCritiques - Fonction pour mettre à jour la liste des critiques.
  */
-export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCritiques, listeCritiques, setListeCritiques, triggerProduitRefetch, triggerCritiqueRefetch) {
+export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCritiques, listeCritiques, setListeCritiques, triggerProduitRefetch, triggerCritiqueRefetch,setError) {
     event.preventDefault();
 
     try{
@@ -215,7 +215,7 @@ export async function supprimerUnProduit(event, eidr, setListeProduits, fonctCri
     }
     catch(e){
         console.log('le produit n\'a pu être supprimé');
-        //setError({error: "error", message: e.message});
+        setError({error: "error", message: e.message});
     }
 }
 
@@ -230,18 +230,6 @@ export function annulerModification(event, setEnModification, setValeurFormulair
     setValeurFormulaire(getValeurFormulaireVide());
     setEnModification(false);
     event.target.parentNode.reset();
-}
-
-/**
- * Enregistre la liste des produits dans le localStorage.
- *
- * @param {Array} listeProduits - La liste des produits à enregistrer.
- */
-export function setLocalStorageProduits(listeProduits) {
-    if (localStorage.getItem("produitsStorage") !== null) {
-        localStorage.removeItem("produitsStorage");
-    }
-    localStorage.setItem("produitsStorage", JSON.stringify(listeProduits));
 }
 
 /**
