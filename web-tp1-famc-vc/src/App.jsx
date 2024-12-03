@@ -71,6 +71,7 @@ function App() {
         setIsShowingCritique(false);
         setIsShowingStatistique(false);
         setIsShowingForm(false);
+        setProduitEnModification(false);
     }
 
     const handleBoutonCritique = () => {
@@ -78,6 +79,7 @@ function App() {
         setIsShowingCritique(true);
         setIsShowingStatistique(false);
         setIsShowingForm(false);
+        setProduitEnModification(false);
     }
 
     const handleBoutonStatistique = () => {
@@ -85,6 +87,7 @@ function App() {
         setIsShowingCritique(false);
         setIsShowingStatistique(true);
         setIsShowingForm(false);
+        setProduitEnModification(false);
     }
 
     const handleBoutonAfficherForm = () => {
