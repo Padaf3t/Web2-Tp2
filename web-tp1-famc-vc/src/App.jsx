@@ -132,6 +132,8 @@ function App() {
 
     }, [fetchAvailableCritiquesAsync, triggerCritiqueRefetch]);
 
+    const themeText = isDarkTheme ? 'Basculer vers le thème clair' : 'Basculer vers le thème sombre';
+
     return (
         <>
             <GestionnaireProduits ref={gestionnaireProduitsRef}
@@ -163,9 +165,13 @@ function App() {
                                       lorsquePret={gestionnaireEstPret}
                                       fonctionnaliteStatistique={fonctionnaliteStatistique}/>
 
-            <button onClick={toggleTheme}>
-                {isDarkTheme ? 'Light Theme' : 'Dark Theme'}
-            </button>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <button
+                    className={`toggle-button ${isDarkTheme ? 'active' : ''}`}
+                    onClick={toggleTheme}>
+                </button>
+                <span style={{marginLeft: '10px'}} className={"themeTexte"}>{themeText}</span>
+            </div>
 
             <SectionTitres handleBoutonProduit={handleBoutonProduit}
                            handleBoutonCritique={handleBoutonCritique}

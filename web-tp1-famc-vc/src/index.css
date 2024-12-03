@@ -4,6 +4,7 @@
   --main-btn-color: #B1F06E;
   --secondary-color: #6ECEF0;
   --accent-color: #967B9B;
+  --special-bg-color: #967B9B;
   --main-text-color: #000;
   --card-text-color: #000;
   --main-btn-text-color: #000;
@@ -12,6 +13,8 @@
   --bg-form-input-color: #FFF;
   --form-input-text-color: #000;
   --form-disabled-input-color: #F0F0F0;
+  --toggle-bg-color: #FFF;
+  --toggle-inside-color: #000;
 }
 
 .dark-theme {
@@ -20,6 +23,7 @@
   --main-btn-color: #000;
   --secondary-color: #000;
   --accent-color: #FFF;
+  --special-bg-color: #000;
   --main-text-color: #DE6EF0;
   --card-text-color: #FFE1B9;
   --main-btn-text-color: #B1F06E;
@@ -28,6 +32,8 @@
   --bg-form-input-color: #000;
   --form-input-text-color: #FFF;
   --form-disabled-input-color: #0F0F0F;
+  --toggle-bg-color: #000;
+  --toggle-inside-color: #FFF;
 }
 
 body {
@@ -81,11 +87,12 @@ button:focus-visible {
 
 .titreButtonSelected {
   background-color: var(--main-btn-color);
-  border-color: var(--secondary-text-color);
+  border-color: var(--main-btn-text-color);
 }
 
 .titreButtonUnselected {
   background-color: var(--secondary-color);
+  border-color: var(--secondary-text-color);
 }
 
 #titresDiv button {
@@ -129,4 +136,36 @@ button:focus-visible {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 50px;
+}
+
+.toggle-button {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  border-radius: 25px;
+  background-color: var(--toggle-bg-color);
+  cursor: pointer;
+  border-color: var(--toggle-inside-color);
+}
+
+.toggle-button::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--toggle-inside-color);
+  transition: transform 0.3s ease-in-out;
+}
+
+.toggle-button.active::before {
+  transform: translateX(24px);
+}
+
+.themeTexte {
+  color: var(--toggle-inside-color);
+  font-size: 10pt;
 }
