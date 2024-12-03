@@ -29,7 +29,9 @@ export async function sauvegarderProduit(event, setListeProduits, listeProduits,
         return;
     }
 
-    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit, triggerRefetch, handleBoutonAfficherForm)) {
+    setErreurPresente({eEidr: false, eNom: false, eDate: false, eRealisateur: false, eDuree: false, ePays: false, eSrc: false});
+
+    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setErreurPresente, setValeurFormulaire, nouveauProduit, triggerRefetch, handleBoutonAfficherForm)) {
         return;
     }
 
@@ -178,7 +180,7 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
  * @param {Object} nouveauProduit - Le nouveau produit à ajouter ou à modifier.
  * @returns {boolean} True si l'opération s'est déroulée avec succès, false sinon.
  */
-async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setValeurFormulaire, nouveauProduit, triggerProduitRefetch, handleBoutonAfficherForm, setError) {
+async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setErreurPresente, setValeurFormulaire, nouveauProduit, triggerProduitRefetch, handleBoutonAfficherForm, setError) {
     if (!enModification) {
         if (validerNumeroEIDR(listeProduits, nouveauProduit.eidr)) {
             try{
@@ -192,7 +194,8 @@ async function ModifierListeProduit(enModification, setEnModification, listeProd
                 setError({error: "error", message: e.message});
             }
         } else {
-            setMessageErreur("Le numéro EIDR " + nouveauProduit.eidr + " existe déjà")
+            setMessageErreur((old) => old + "Le numéro EIDR " + nouveauProduit.eidr + " existe déjà\n")
+            setErreurPresente({eEidr: true})
             return false;
         }
     } else {
