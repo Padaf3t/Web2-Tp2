@@ -48,20 +48,21 @@ function validerNouvelleCritique(formData, nouvelleCritique, setMessageErreur,se
 
     let erreurPresente = false;
     let valide = true;
+    setMessageErreur(() => "");
 
     if (!validerStringsRemplies(formData.get("qualiteVisuelle"))) {
         erreurPresente = true;
-        setErreurPresente({eQualiteVisuel: true})
+        setErreurPresente(prevState => ({ ...prevState,eQualiteVisuelle: true}));
     }
 
     if (!validerStringsRemplies(formData.get("qualiteSonore"))) {
         erreurPresente = true;
-        setErreurPresente({eQualiteSonore: true})
+        setErreurPresente(prevState => ({ ...prevState,eQualiteSonore: true}));
     }
 
     if (!validerStringsRemplies(formData.get("appreciation"))) {
         erreurPresente = true;
-        setErreurPresente({eAppreciation: true})
+        setErreurPresente(prevState => ({ ...prevState,eAppreciation: true}));
     }
 
     if(erreurPresente){
@@ -72,17 +73,17 @@ function validerNouvelleCritique(formData, nouvelleCritique, setMessageErreur,se
 
     if (!validerNote0A100(nouvelleCritique.qualiteVisuelle)) {
         erreurPresente = true;
-        setErreurPresente({eQualiteVisuel: true})
+        setErreurPresente(prevState => ({ ...prevState,eQualiteVisuelle: true}));
     }
 
     if (!validerNote0A100(nouvelleCritique.qualiteSonore)) {
         erreurPresente = true;
-        setErreurPresente({eQualiteSonore: true})
+        setErreurPresente(prevState => ({ ...prevState,eQualiteSonore: true}));
     }
 
     if (!validerNote0A100(nouvelleCritique.appreciation)) {
         erreurPresente = true;
-        setErreurPresente({eAppreciation: true})
+        setErreurPresente(prevState => ({ ...prevState,eAppreciation: true}));
     }
 
     if(erreurPresente){

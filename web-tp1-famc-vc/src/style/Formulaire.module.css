@@ -48,3 +48,8 @@
     background-color: var(--form-disabled-input-color);
     opacity: 50%
 }
+
+.inputError{
+    background-color: red !important;
+    border-color: red !important;
+}

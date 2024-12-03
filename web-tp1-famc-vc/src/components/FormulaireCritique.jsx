@@ -11,7 +11,7 @@ import GestionnaireReferenceCritiquesContext from "./contexts/GestionnaireRefere
 export default function FormulaireCritique({listeProduits}) {
 
     const [messageErreur, setMessageErreur] = useState("");
-    const [erreurPresente, setErreurPresente] = useState({eQualiteVisuel: false, eQualiteSonore: false, eAppreciation: false})
+    const [erreurPresente, setErreurPresente] = useState({eQualiteVisuelle: false, eQualiteSonore: false, eAppreciation: false})
 
     const refGestionnaire = useContext(GestionnaireReferenceCritiquesContext);
 
@@ -42,11 +42,11 @@ export default function FormulaireCritique({listeProduits}) {
                 </select><br/>
 
                 <label htmlFor="qualiteVisuelle">Qualité visuelle (%) :</label><br/>
-                <input type="number" id="qualiteVisuelle" name="qualiteVisuelle"/><br/>
+                <input type="number" id="qualiteVisuelle" name="qualiteVisuelle" className={getInputClass('eQualiteVisuelle')}/><br/>
                 <label htmlFor="qualiteSonore">Qualité sonore (%) :</label><br/>
-                <input type="number" id="qualiteSonore" name="qualiteSonore"/><br/>
+                <input type="number" id="qualiteSonore" name="qualiteSonore" className={getInputClass('eQualiteSonore')}/><br/>
                 <label htmlFor="appreciation">Appréciation (%) :</label><br/>
-                <input type="number" id="appreciation" name="appreciation"/><br/>
+                <input type="number" id="appreciation" name="appreciation" className={getInputClass('eAppreciation')}/><br/>
                 <button type='submit'>Ajouter la nouvelle critique</button>
             </form>
         </div>)

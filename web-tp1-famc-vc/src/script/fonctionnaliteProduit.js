@@ -86,36 +86,36 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
 
     if (!validerStringsRemplies(formData.get("id"))) {
         erreurPresente = true;
-        setErreurPresente({eEidr: true});
+        setErreurPresente(prevState => ({ ...prevState,eEidr: true}));
     }
 
     if (!validerStringsRemplies(nouveauProduit.nom)) {
         erreurPresente = true;
-        setErreurPresente({eNom: true});
+        setErreurPresente(prevState => ({ ...prevState, eNom: true}));
     }
 
     if (!validerStringsRemplies(nouveauProduit.dateSortie)) {
         erreurPresente = true;
-        setErreurPresente({eDate: true});
+        setErreurPresente(prevState => ({ ...prevState, eDate: true}));
     }
 
     if (!validerStringsRemplies(nouveauProduit.realisateur)) {
         erreurPresente = true;
-        setErreurPresente({eRealisateur: true});
+        setErreurPresente(prevState => ({ ...prevState,eRealisateur: true}));
     }
 
     if (!validerStringsRemplies(nouveauProduit.dureeMinute)) {
         erreurPresente = true;
-        setErreurPresente({eDuree: true});
+        setErreurPresente(prevState => ({ ...prevState,eDuree: true}));
     }
 
     if (!validerStringsRemplies(nouveauProduit.paysOrigine)) {
         erreurPresente = true;
-        setErreurPresente({ePays: true});
+        setErreurPresente(prevState => ({ ...prevState,ePays: true}));
     }
 
     if (!validerStringsRemplies(nouveauProduit.afficheSrc)) {
-        setErreurPresente({eSrc: true});
+        setErreurPresente(prevState => ({ ...prevState,eSrc: true}));
         erreurPresente = true;
     }
 
@@ -126,23 +126,23 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
     }
 
     if (!validerLongueurMaxString(longueurMax, nouveauProduit.nom)) {
-        setErreurPresente({eNom: true});
+        setErreurPresente(prevState => ({ ...prevState,eNom: true}));
         erreurPresente = true;
     }
 
     if (!validerLongueurMaxString(longueurMax, nouveauProduit.realisateur)) {
         erreurPresente = true;
-        setErreurPresente({eRealisateur: true});
+        setErreurPresente(prevState => ({ ...prevState,eRealisateur: true}));
     }
 
     if (!validerLongueurMaxString(longueurMax, nouveauProduit.paysOrigine)) {
         erreurPresente = true;
-        setErreurPresente({ePays: true});
+        setErreurPresente(prevState => ({ ...prevState,ePays: true}));
     }
 
     if (!validerLongueurMaxString(longueurMax, nouveauProduit.afficheSrc)) {
         erreurPresente = true;
-        setErreurPresente({eSrc: true});
+        setErreurPresente(prevState => ({ ...prevState,eSrc: true}));
     }
 
     if(erreurPresente){
@@ -151,13 +151,13 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
     }
 
     if (!validerNombrePositif(Number(formData.get("dureeMinute")))) {
-        setErreurPresente({eDuree: true});
+        setErreurPresente(prevState => ({ ...prevState,eDuree: true}));
         setMessageErreur((old) => old + "Les champs de nombre doivent être positif\n");
         valide = false;
     }
 
     if(!validerDateAnterieur(date)){
-        setErreurPresente({eDate: true});
+        setErreurPresente(prevState => ({ ...prevState,eDate: true}));
         setMessageErreur((old) => old + "La date doit être dans le passé ou aujourd'hui\n");
         valide = false;
     }
