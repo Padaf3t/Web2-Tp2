@@ -178,7 +178,7 @@ function App() {
                     isShowingProduit &&
                     <GestionnaireReferenceProduitsContext.Provider value={gestionnaireProduitsRef}>
                         <SectionProduit listeProduits={listeProduits} produitEnModification={produitEnModification}
-                                        isShowingForm={isShowingForm}>
+                                        isShowingForm={isShowingForm} isFetching={isFetching}>
                             {isShowingForm &&
                                 <FormulaireProduit valeurFormulaire={valeurFormulaire}
                                                    produitEnModification={produitEnModification}/>
@@ -189,7 +189,7 @@ function App() {
                 (isShowingCritique &&
                     <GestionnaireReferenceCritiquesContext.Provider value={gestionnaireCritiquesRef}>
                         <SectionCritiques listeCritiques={listeCritiques} listeProduits={listeProduits}
-                                          isShowingForm={isShowingForm}>
+                                          isShowingForm={isShowingForm} isFetching={isFetching}>
                             {isShowingForm &&
                                 <FormulaireCritique listeProduits={listeProduits}/>
                             }
