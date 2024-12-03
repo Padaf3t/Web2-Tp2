@@ -1,6 +1,7 @@
 import styles from "../style/Produit.module.css";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import GestionnaireReferenceProduitsContext from "./contexts/GestionnaireReferenceProduitsContext.jsx";
+import ModalSupression from "./ModalSupression.jsx";
 
 /**
  * Composant Produit qui affiche les détails d'un produit (film)
@@ -20,6 +21,7 @@ export default function Produit({...produit}){
 
     const {eidr, nom, dateSortie, realisateur, genre, dureeMinute, paysOrigine, afficheSrc} = produit;
     const refGestionnaire = useContext(GestionnaireReferenceProduitsContext);
+    const [showModal, setShowModal] = useState(false);
 
     /**
      * Fonction pour supprimer le produit.
@@ -27,6 +29,7 @@ export default function Produit({...produit}){
      */
     const supprimerProduit = ((event) => {
         refGestionnaire.current.supprimerProduit(event,eidr);
+        setShowModal(false);
     })
 
     /**
@@ -38,7 +41,11 @@ export default function Produit({...produit}){
 
     return (
         <div className={["elementDiv", styles.produitDiv].join(" ")}>
-            <button onClick={supprimerProduit}>X</button>
+            <ModalSupression show={showModal}
+                             handleClose={() => setShowModal(false)}
+                             onConfirm={supprimerProduit}
+                             bodyTexte={"Êtes-vous sûr de vouloir supprimer ce film ? Cette action est irréversible."}/>
+            <button onClick={() => setShowModal(true)}>X</button>
             <button onClick={modifierProduit}>Modifier</button>
             <img src={afficheSrc} width="100px" alt="Image du film"/>
             <div>
