@@ -13,7 +13,7 @@ export default function SectionTitres({handleBoutonProduit,handleBoutonCritique,
                 <button onClick={handleBoutonCritique} className={isShowingCritique ? "titreButtonSelected" : "titreButtonUnselected"}><h1>Critiques</h1></button>
                 <button onClick={handleBoutonStatistique} className={isShowingStatistique ? "titreButtonSelected" : "titreButtonUnselected"}><h1>Statistiques</h1></button>
             </div>
-            {!isShowingStatistique && !produitEnModification &&
+            {!isShowingStatistique && !produitEnModification && (isShowingProduit || isShowingCritique) &&
             <div id={"divAfficherFormButton"}>
                 <button onClick={handleBoutonAfficherForm}>{textBoutonAjouter}</button>
             </div>

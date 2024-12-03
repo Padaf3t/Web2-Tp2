@@ -85,7 +85,6 @@ function App() {
     }
 
     const handleBoutonAfficherForm = () => {
-        // setIsShowingForm(true);
         setIsShowingForm(prev => !prev);
     }
 
