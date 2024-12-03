@@ -1,0 +1,26 @@
+.modalTitle {
+    font-size: 20px;
+    font-weight: bold;
+    /*color: var(--main-text-color) !important;*/
+}
+
+.modalBg {
+    background-color: var(--secondary-color) !important;
+}
+
+.annulerButton {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-text-color) !important;
+    color: var(--secondary-text-color) !important;
+
+}
+
+.supprimerButton {
+    background-color: var(--main-bg-color) !important;
+    border-color: var(--main-text-color) !important;
+    color: var(--main-text-color) !important;
+}
+
+.modalContent {
+    color: var(--main-text-color);
+}
