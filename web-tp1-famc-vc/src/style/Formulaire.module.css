@@ -6,7 +6,7 @@
     display:inline-block;
     align-items: center;
     border-radius: 20px;
-    border: 3px solid var(--form-field-text-color);
+    border: 3px solid var(--form-input-text-color);
     padding: 20px;
     overflow: hidden;
 }
@@ -17,6 +17,11 @@
 
 .formulaireDiv select, .formulaireDiv input, .formulaireDiv button {
     width: 60%;
+}
+
+.formulaireDiv select, .formulaireDiv input {
+    background-color: var(--bg-form-input-color);
+    color: var(--form-input-text-color);
 }
 
 .titreFormulaire{
@@ -34,7 +39,7 @@
 
 .formulaireDiv input, .formulaireDiv select{
     border-radius: 5px;
-    border: 2px solid var(--form-field-text-color);
+    border: 2px solid var(--form-input-text-color);
 }
 
 .inputGrise{

@@ -10,7 +10,7 @@
   --secondary-text-color: #000;
   --accent-contour-color: #000;
   --bg-form-input-color: #FFF;
-  --form-field-text-color: #000;
+  --form-input-text-color: #000;
   --form-disabled-input-color: #F0F0F0;
 }
 
@@ -26,7 +26,7 @@
   --secondary-text-color: #6ECEF0;
   --accent-contour-color: #967B9B;
   --bg-form-input-color: #000;
-  --form-field-text-color: #FFF;
+  --form-input-text-color: #FFF;
   --form-disabled-input-color: #0F0F0F;
 }
 
@@ -81,6 +81,7 @@ button:focus-visible {
 
 .titreButtonSelected {
   background-color: var(--main-btn-color);
+  border-color: var(--secondary-text-color);
 }
 
 .titreButtonUnselected {
