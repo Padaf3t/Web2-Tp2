@@ -1,6 +1,12 @@
 import React from "react";
 import { Spinner, Fade } from "react-bootstrap";
 
+/**
+ * Composant permettant d'afficher un visuel lorsque les données sont en cours de récupération
+ * @param isFetching - si les données sont présentement en récupération
+ * @returns {Element}
+ * @constructor
+ */
 const FetchingElement = ({ isFetching }) => {
     return (
         <div style={{ marginTop: "30%", textAlign: "center" }}>
