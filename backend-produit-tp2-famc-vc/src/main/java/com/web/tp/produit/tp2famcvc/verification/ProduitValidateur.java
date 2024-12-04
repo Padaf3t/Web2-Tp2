@@ -4,6 +4,9 @@ import com.web.tp.produit.tp2famcvc.model.Produit;
 
 import java.time.LocalDate;
 
+/**
+ * Sert à la validation des paramètre d'un produit
+ */
 public class ProduitValidateur {
 
     public String validateProduit(Produit produit) {

@@ -16,6 +16,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Controller gérant la BD de produit
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class ProduitController implements CommandLineRunner {
@@ -28,24 +31,43 @@ public class ProduitController implements CommandLineRunner {
 
     private Logger logger = LoggerFactory.getLogger(ProduitController.class);
 
+    /**
+     * Permet de récupérer la liste de produit
+     * @return la liste de produit
+     */
     @GetMapping(value = "/produits", produces = {"application/json"})
     Collection<Produit> listAllProduits(){
         logger.info("****Obtention de la liste de produits");
         return (Collection<Produit>) produitRepository.findAll();
     }
 
-    @GetMapping(value = "/produits/{EIDR}", produces = {"application/json"})
-    Produit getProduit(@PathVariable int EIDR){
-        logger.info("****Obtention du produit " + EIDR);
-        return produitRepository.findFirstByEidr(EIDR);
+    /**
+     * Permet de récupérer un produit en particulier selon l'eidr
+     * @param eidr, l'identifiant unique du produit
+     * @return le produit contanant l'eidr voulu
+     */
+    @GetMapping(value = "/produits/{eidr}", produces = {"application/json"})
+    Produit getProduit(@PathVariable int eidr){
+        logger.info("****Obtention du produit " + eidr);
+        return produitRepository.findFirstByEidr(eidr);
     }
 
+    /**
+     * Permet de retourner la liste de sous catégorie de produit
+     * @return la liste de sous catégorie de produit
+     */
     @GetMapping(value = "/produits/souscategorie", produces = {"application/json"})
     Collection<EnumSousCategorie> listAllSousCategories(){
         logger.info("****Obtention des sous categories");
         return Arrays.asList(EnumSousCategorie.values());
     }
 
+    /**
+     * Permet d'ajouter un produit en BD
+     * @param produit le produit à ajouter
+     * @return l'eidr du produit ajouter
+     * @throws ProduitInformationInvalidException
+     */
     @PostMapping("/produits/post")
     int ajouteProduits(@RequestBody Produit produit) throws ProduitInformationInvalidException {
         logger.info("****Ajouter un produit " + produit);
@@ -60,6 +82,12 @@ public class ProduitController implements CommandLineRunner {
         return EIDR;
     }
 
+    /**
+     * Permet de modifier un produit en BD
+     * @param newProduit le produit a modifier
+     * @return le produit modifier
+     * @throws ProduitInformationInvalidException
+     */
     @PutMapping("/produits/put")
     Produit updateProduit(@RequestBody Produit newProduit) throws ProduitInformationInvalidException {
 
@@ -83,10 +111,15 @@ public class ProduitController implements CommandLineRunner {
         return retProduit;
     }
 
-    @DeleteMapping("/produits/delete/{EIDR}")
-    void deleteProduit(@PathVariable int EIDR) throws ProduitNonTrouveException {
-        logger.info("**** Suppression d'un produit " + EIDR);
-        Produit produit = produitRepository.findFirstByEidr(EIDR);
+    /**
+     * Permet de supprimer un produit selon son eidr
+     * @param eidr l'identifiant unique du produit à supprimer
+     * @throws ProduitNonTrouveException
+     */
+    @DeleteMapping("/produits/delete/{eidr}")
+    void deleteProduit(@PathVariable int eidr) throws ProduitNonTrouveException {
+        logger.info("**** Suppression d'un produit " + eidr);
+        Produit produit = produitRepository.findFirstByEidr(eidr);
         if(produit != null){
             produitRepository.deleteById(produit.getId());
         }
@@ -101,6 +134,7 @@ public class ProduitController implements CommandLineRunner {
 
         logger.info("*******Démarage de la Backend Produit********");
 
+        //Ajout des produits de base en BD s'ils ont été supprimé
         if(produitRepository.findFirstByEidr(1) == null){
             produitRepository.save(Produit.builder()
                     .eidr(1)

@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/**
+ * La classe de l'entité produit en BD
+ */
 @Entity
 @Getter
 @Setter

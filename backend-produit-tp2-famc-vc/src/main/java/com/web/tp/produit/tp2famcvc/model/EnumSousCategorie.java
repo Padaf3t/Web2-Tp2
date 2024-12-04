@@ -1,5 +1,8 @@
 package com.web.tp.produit.tp2famcvc.model;
 
+/**
+ * L'enum de sous catégorie de produit
+ */
 public enum EnumSousCategorie {
     AVENTURE("Aventure"),
     COMEDIE("Comédie"),
