@@ -7,8 +7,10 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+/**
+ * Représente une critique faite pour un produit (film)
+ */
 @Entity
 @Getter
 @Setter
@@ -29,13 +31,16 @@ public class Critique {
     private int qualiteSonore;
     private int appreciation;
     private double moyenne = 0;
-//    @Builder.Default
-//    private double moyenne = (double)(appreciation+qualiteSonore+qualiteVisuelle)/3;
 
-//    public double getMoyenne() {
-//        return (double)(getAppreciation()+getQualiteSonore()+getQualiteVisuelle())/3;
-//    }
-
+    /**
+     * Calcule la moyenne des notes mises dans le cadre de la critique
+     * (moyenne de qualité visuelle, qualité sonore et appréciation
+     *
+     * @param qualiteVisuelle : la qualité visuelle du film
+     * @param qualiteSonore : la qualité sonore du film
+     * @param appreciation : l'appréciation du film
+     * @return la moyenne calculée
+     */
     public static double calculerMoyenne(int qualiteVisuelle, int qualiteSonore, int appreciation) {
         return (qualiteVisuelle + qualiteSonore + appreciation) / 3.0;
     }

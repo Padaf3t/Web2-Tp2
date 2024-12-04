@@ -5,8 +5,17 @@ import com.web.tp.critique.tp2famcvc.model.Critique;
 import java.time.LocalDate;
 import java.util.Date;
 
+/**
+ * Classe qui fournit des méthodes pour valider les différentes propriétés d'une critique
+ */
 public class CritiqueValidateur {
 
+    /**
+     * Valide les différentes propriétés d'une critique
+     *
+     * @param critique La critique à valider.
+     * @return Un message d'erreur si la critique n'est pas valide, sinon une chaîne vide.
+     */
     public String validateCritique(Critique critique) {
         String message = "";
 
@@ -29,15 +38,33 @@ public class CritiqueValidateur {
         return message;
     }
 
+    /**
+     * Valide qu'une note est comprise entre 0 et 100.
+     *
+     * @param note La note à valider.
+     * @return true si la note est valide, false sinon.
+     */
     private boolean validateNote(int note) {
         return note >= 0 && note <= 100;
     }
 
+    /**
+     * Valide qu'une date est valide (non nulle et antérieure ou égale à la date du jour).
+     *
+     * @param date La date à valider.
+     * @return true si la date est valide, false sinon.
+     */
     private boolean validateDate(LocalDate date) {
         LocalDate today = LocalDate.now();
         return date != null && (date.isEqual(today) || date.isBefore(today));
     }
 
+    /**
+     * Valide qu'un EIDR est positif.
+     *
+     * @param eidr L'EIDR à valider.
+     * @return true si l'EIDR est positif, false sinon.
+     */
     private boolean validateEidr(int eidr) {
         return eidr >= 0;
     }

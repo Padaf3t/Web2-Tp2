@@ -16,6 +16,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Contrôleur (REST) responsable de la gestion des critiques,
+ * qui permet d'ajouter, de modifier, de supprimer et de consulter les critiques.
+ */
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class CritiqueController implements CommandLineRunner {
@@ -28,6 +32,12 @@ public class CritiqueController implements CommandLineRunner {
     @Autowired
     CritiqueValidateur critiqueValidateur;
 
+    /**
+     * Méthode exécutée au démarrage de l'application pour peupler la base de données avec des critiques par défaut.
+     * Pour chaque critique par défaut, on vérifie si elle est déjà en BD (selon date et EIDR), et si non, on l'y ajoute.
+     *
+     * @param args Les arguments de ligne de commande (non utilisés).
+     */
     @Override
     public void run(String... args) throws Exception {
 
@@ -300,6 +310,11 @@ public class CritiqueController implements CommandLineRunner {
         }
     }
 
+    /**
+     * Récupère et retourne la liste de toutes les critiques.
+     *
+     * @return Une collection de toutes les critiques.
+     */
     @GetMapping(value = "/critiques", produces = {"application/json"})
     public Collection<Critique> listAllCritiques() {
         logger.info("********** Appel de listAllCritiques **********");
@@ -307,6 +322,13 @@ public class CritiqueController implements CommandLineRunner {
         return (Collection<Critique>) critiqueRepository.findAll();
     }
 
+    /**
+     * Ajoute une nouvelle critique à la BD.
+     *
+     * @param critique La critique à ajouter.
+     * @return La critique ajoutée (avec son nouvel ID en BD).
+     * @throws CritiqueInformationInvalidException Si la critique contient des informations invalides.
+     */
     @PostMapping("critique/post")
     public Critique ajouteCritique(@RequestBody Critique critique) {
         logger.info("********** Appel de ajouteCritique **********");
@@ -323,6 +345,11 @@ public class CritiqueController implements CommandLineRunner {
         return critique;
     }
 
+    /**
+     * Supprime une critique par son ID.
+     *
+     * @param id L'ID de la critique à supprimer.
+     */
     @DeleteMapping("/critique/deletebyid/{id}")
     void deleteCritiqueById(@PathVariable long id) {
         logger.info("********** Appel de deleteCritiqueById **********");
@@ -330,6 +357,11 @@ public class CritiqueController implements CommandLineRunner {
         critiqueRepository.deleteById(id);
     }
 
+    /**
+     * Supprime toutes les critiques associées à un EIDR donné.
+     *
+     * @param eidr L'EIDR des critiques à supprimer.
+     */
     @DeleteMapping("/critique/deletebyeidr/{eidr}")
     void deleteCritiqueByEidr(@PathVariable int eidr) {
         logger.info("********** Appel de deleteCritiqueByEidr **********");
