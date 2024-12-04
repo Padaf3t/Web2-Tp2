@@ -13,6 +13,7 @@ import style from "../style/Formulaire.module.css";
 export default function FormulaireProduit({valeurFormulaire, produitEnModification}){
 
     const [messageErreur, setMessageErreur] = useState("");
+    //State pour dire si un champs du formulaire comporte une erreur ou non
     const [erreurPresente, setErreurPresente] = useState({eEidr: false, eNom: false, eDate: false, eRealisateur: false, eDuree: false, ePays: false, eSrc: false})
     const refGestionnaire = useContext(GestionnaireReferenceProduitsContext);
 
@@ -40,6 +41,11 @@ export default function FormulaireProduit({valeurFormulaire, produitEnModificati
         refGestionnaire.current.sortirModeModifierProduit(e);
     }
 
+    /**
+     * Fonction permettant de vérifier si une erreur est présente afin de changer la classe de style de l'élément
+     * @param erreurKey - La clé dans l'objet erreurPresente
+     * @returns {*|string} la classe de style résultante
+     */
     const getInputClass = (erreurKey) => erreurPresente[erreurKey] ? style.inputError : '';
 
     let enModificationClassGrise = produitEnModification ? style.inputGrise : '';
