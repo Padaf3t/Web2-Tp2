@@ -5,8 +5,6 @@ import {
     validerStringsRemplies
 } from "./fonctionnaliteUtilitaire.js";
 import {ajouteProduits, deleteProduit, modifierProduitBackend} from "./httpProduits.js";
-import {retirerCritiquesParEidr} from "./fonctionnaliteCritique.js";
-import {useState} from "react";
 
 /**
  * Sauvegarde un nouveau produit ou met à jour un produit existant.
@@ -18,8 +16,12 @@ import {useState} from "react";
  * @param {function} setEnModification - Fonction pour mettre à jour l'état de modification.
  * @param {function} setValeurFormulaire - Fonction pour mettre à jour les valeurs du formulaire.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
+ * @param {function} setErreurPresente - Fonction pour set si un champs à une erreur.
+ * @param {function} triggerRefetch - Fonction pour trigger un refetch de produit
+ * @param {function} handleBoutonAfficherForm -Fonction pour cacher ou afficher le formulaire
+ * @param {function} setError - Fonction pour afficher erreur relatif à la BD
  */
-export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur, setErreurPresente, triggerRefetch,handleBoutonAfficherForm) {
+export async function sauvegarderProduit(event, setListeProduits, listeProduits, enModification, setEnModification, setValeurFormulaire, setMessageErreur, setErreurPresente, triggerRefetch,handleBoutonAfficherForm, setError) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -29,9 +31,10 @@ export async function sauvegarderProduit(event, setListeProduits, listeProduits,
         return;
     }
 
+    //Réinitialise les erreurs présentes
     setErreurPresente({eEidr: false, eNom: false, eDate: false, eRealisateur: false, eDuree: false, ePays: false, eSrc: false});
 
-    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setErreurPresente, setValeurFormulaire, nouveauProduit, triggerRefetch, handleBoutonAfficherForm)) {
+    if (!ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setErreurPresente, setValeurFormulaire, nouveauProduit, triggerRefetch, handleBoutonAfficherForm, setError)) {
         return;
     }
 
@@ -74,6 +77,7 @@ function obtenirProduitDuFormulaire(formData) {
  * @param {FormData} formData - Les données du formulaire.
  * @param {Object} nouveauProduit - Le produit à valider.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
+ * @param {function} setErreurPresente - Fonction pour set si un champs à une erreur.
  * @returns {boolean} True si le produit est valide, false sinon.
  */
 function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setErreurPresente) {
@@ -84,6 +88,7 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
     let valide = true;
     setMessageErreur(() => "");
 
+    //Validation des strings remplis
     if (!validerStringsRemplies(formData.get("id"))) {
         erreurPresente = true;
         setErreurPresente(prevState => ({ ...prevState,eEidr: true}));
@@ -125,6 +130,7 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
         erreurPresente = false;
     }
 
+    //Vérification des longueurs maximum
     if (!validerLongueurMaxString(longueurMax, nouveauProduit.nom)) {
         setErreurPresente(prevState => ({ ...prevState,eNom: true}));
         erreurPresente = true;
@@ -150,12 +156,14 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
         valide = false;
     }
 
+    //Validation des nombres positifs
     if (!validerNombrePositif(Number(formData.get("dureeMinute")))) {
         setErreurPresente(prevState => ({ ...prevState,eDuree: true}));
         setMessageErreur((old) => old + "Les champs de nombre doivent être positif\n");
         valide = false;
     }
 
+    //Validation de la date
     if(!validerDateAnterieur(date)){
         setErreurPresente(prevState => ({ ...prevState,eDate: true}));
         setMessageErreur((old) => old + "La date doit être dans le passé ou aujourd'hui\n");
@@ -176,8 +184,12 @@ function validerNouveauProduit(formData, nouveauProduit, setMessageErreur, setEr
  * @param {Array} listeProduits - La liste actuelle des produits.
  * @param {function} setListeProduits - Fonction pour mettre à jour la liste des produits.
  * @param {function} setMessageErreur - Fonction pour afficher un message d'erreur.
+ * @param {function} setErreurPresente - Fonction pour set si un champs à une erreur.
  * @param {function} setValeurFormulaire - Fonction pour mettre à jour les valeurs du formulaire.
  * @param {Object} nouveauProduit - Le nouveau produit à ajouter ou à modifier.
+ * @param {function} triggerProduitRefetch - Fonction pour trigger un refetch des produits
+ * @param {function} handleBoutonAfficherForm - Fonction pour afficher ou cacher le formulaire
+ * @param {function} setError - Fonction pour afficher une erreur
  * @returns {boolean} True si l'opération s'est déroulée avec succès, false sinon.
  */
 async function ModifierListeProduit(enModification, setEnModification, listeProduits, setListeProduits, setMessageErreur, setErreurPresente, setValeurFormulaire, nouveauProduit, triggerProduitRefetch, handleBoutonAfficherForm, setError) {

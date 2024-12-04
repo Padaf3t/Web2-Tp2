@@ -59,6 +59,11 @@ export function validerLongueurMaxString(longueurMax,...listeItems) {
     return true;
 }
 
+/**
+ * Valide si la date est aujourd'hui ou dans le passé
+ * @param date la date à valider
+ * @returns {boolean} si la date est valide
+ */
 export function validerDateAnterieur(date) {
     // Create a new Date object for today's date
     const today = new Date();
