@@ -28,14 +28,16 @@ function App() {
     const [listeProduits, setListeProduits] = useState([]);
     const [listeCritiques, setListeCritiques] = useState([]);
     const [valeurFormulaire, setValeurFormulaire] = useState(fonctionnaliteProduit.getValeurFormulaireVide());
-    const [produitEnModification, setProduitEnModification] = useState(false);
-    const [, setEstPret] = useState(false);
+
     const [error, setError] = useState({error: "none", message: ""});
     const [isFetching, setIsFetching] = useState(false);
+
+    const [, setEstPret] = useState(false);
     const [triggerProduitRefetch, setTriggerProduitRefetch] = useState(false);
     const [triggerCritiqueRefetch, setTriggerCritiqueRefetch] = useState(false);
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
 
+    const [isDarkTheme, setIsDarkTheme] = useState(false);
+    const [produitEnModification, setProduitEnModification] = useState(false);
     const [isShowingProduit, setIsShowingProduit] = useState(false);
     const [isShowingCritique, setIsShowingCritique] = useState(false);
     const [isShowingStatistique, setIsShowingStatistique] = useState(false);
@@ -47,25 +49,40 @@ function App() {
     const gestionnaireStatistiquesRef = useRef(null);
 
     const mapCategorieProduit = fonctionnaliteStatistique.obtenirMapCategorieProduit(listeProduits);
+    const themeText = isDarkTheme ? 'Basculer vers le thème clair' : 'Basculer vers le thème sombre';
 
+    /**
+     * Permet de changer le theme entre theme clair et sombre
+     */
     const toggleTheme = () => {
         setIsDarkTheme(!isDarkTheme);
         document.body.classList.toggle('dark-theme');
     };
 
-    //Fonction pour rendre prête la reférence des gestionnaires
+    /**
+     * Fonction pour rendre prête la reférence des gestionnaires
+     */
     const gestionnaireEstPret = () => {
         setEstPret(true);
     };
 
+    /**
+     * Permet de trigger un produit refetch
+     */
     const handleProduitRefetch = () => {
         setTriggerProduitRefetch((prev) => !prev); // Change trigger state
     };
 
+    /**
+     * Permet de trigger un critique refetch
+     */
     const handleCritiqueRefetch = () => {
         setTriggerCritiqueRefetch((prev) => !prev); // Change trigger state
     };
 
+    /**
+     * Permet d'afficher les produits et de cacher le reste
+     */
     const handleBoutonProduit = () => {
         setIsShowingProduit(true);
         setIsShowingCritique(false);
@@ -74,6 +91,9 @@ function App() {
         setProduitEnModification(false);
     }
 
+    /**
+     * Permet d'afficher les critiques et de cacher le reste
+     */
     const handleBoutonCritique = () => {
         setIsShowingProduit(false);
         setIsShowingCritique(true);
@@ -82,6 +102,9 @@ function App() {
         setProduitEnModification(false);
     }
 
+    /**
+     * Permet d'afficher les statistiques et de cacher le reste
+     */
     const handleBoutonStatistique = () => {
         setIsShowingProduit(false);
         setIsShowingCritique(false);
@@ -90,14 +113,23 @@ function App() {
         setProduitEnModification(false);
     }
 
+    /**
+     * Permet d'afficher le formulaire
+     */
     const handleBoutonAfficherForm = () => {
         setIsShowingForm(prev => !prev);
     }
 
+    /**
+     * Permet d'afficher le formulaire lorsqu'on modifie un produit
+     */
     useEffect(() => {
         setIsShowingForm(produitEnModification)
     }, [produitEnModification]);
 
+    /**
+     * Permet de fetch les produits
+     */
     useEffect(() => {
         async function fetchData() {
             setIsFetching(true)
@@ -115,6 +147,9 @@ function App() {
 
     }, [fetchAvailableProduitsAsync, triggerProduitRefetch]);
 
+    /**
+     * Permet de fetch les critiques
+     */
     useEffect(() => {
         async function fetchData() {
             setIsFetching(true)
@@ -131,8 +166,6 @@ function App() {
         fetchData();
 
     }, [fetchAvailableCritiquesAsync, triggerCritiqueRefetch]);
-
-    const themeText = isDarkTheme ? 'Basculer vers le thème clair' : 'Basculer vers le thème sombre';
 
     return (
         <>
@@ -183,6 +216,7 @@ function App() {
                            isShowingCritique={isShowingCritique}
                            produitEnModification={produitEnModification}/>
 
+            //Vérifie s'il y a une erreur dans les requetes BD
             {error.error === "none" ? (
                     isShowingProduit &&
                     <GestionnaireReferenceProduitsContext.Provider value={gestionnaireProduitsRef}>
@@ -225,6 +259,7 @@ function App() {
                         </SectionStatistique>
                     </GestionnaireReferenceStatistiquesContext.Provider>)
                 :
+                //Si erreur affiche message d'erreur
                 <Alert severity="error">
                     <Alert.Heading>Error</Alert.Heading>
                     <p>{error.message}</p>
