@@ -18,6 +18,7 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
              * Ajoute une nouvelle critique.
              * @param {Event} event - L'événement déclencheur.
              * @param {Function} setMessageErreur - Fonction pour mettre à jour le message d'erreur.
+             * @param {function} setErreurPresente - Fonction pour signaler s'il y a des erreurs dans un ou des champs du formulaire.
              */
             ajouterCritique: (event, setMessageErreur,setErreurPresente) => {
                 fonctionnaliteCritique.ajouterNouvelleCritique(event, setListeCritiques, setMessageErreur, setErreurPresente, triggerCritiqueRefetch, handleBoutonAfficherForm, setError);
@@ -33,14 +34,14 @@ const GestionnaireCritiques = forwardRef((props, ref) => {
             /**
              * Supprime la critique spécifiée.
              * @param {Event} event - L'événement déclencheur.
-             * @param {number} id - L'identifiant de la critique à supprimer.
+             * @param {number} eidr - L'eidr de produit dont il faut supprimer les critiques.
              */
             supprimerCritiquesParEidr: (event, eidr) => {
                 fonctionnaliteCritique.retirerCritiquesParEidr(event, eidr, setListeCritiques, triggerCritiqueRefetch, setError);
             },
             /**
              * Obtient le nom du produit associé à une critique spécifiée.
-             * @param {number} EIDR - L'identifiant du produit.
+             * @param {number} eidr - L'identifiant du produit.
              * @returns {string} Le nom du produit.
              */
             obtenirNomProduitPourCritique: (eidr) => {
