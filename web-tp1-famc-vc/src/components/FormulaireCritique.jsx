@@ -15,10 +15,19 @@ export default function FormulaireCritique({listeProduits}) {
 
     const refGestionnaire = useContext(GestionnaireReferenceCritiquesContext);
 
+    /**
+     * Permet de créer une nouvelle critique via gestionnaire
+     * @param {Event} event - L'événement de clic
+     */
     const creerNouvelleCritique = (event) => {
         refGestionnaire.current.ajouterCritique(event, setMessageErreur, setErreurPresente);
     };
 
+    /**
+     * Fonction permettant de vérifier si une erreur est présente afin de changer la classe de style de l'élément
+     * @param erreurKey - La clé dans l'objet erreurPresente
+     * @returns {*|string} la classe de style résultante
+     */
     const getInputClass = (erreurKey) => erreurPresente[erreurKey] ? style.inputError : '';
 
     return (
