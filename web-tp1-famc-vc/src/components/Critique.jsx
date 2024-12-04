@@ -5,13 +5,7 @@ import ModalSupression from "./ModalSupression.jsx";
 
 /**
  * Composant Critique qui affiche les détails d'une critique de film.
- * @param {Object} props - Les propriétés du composant.
- * @param {number} props.id - L'identifiant de la critique.
- * @param {number} props.eidr - L'identifiant du produit associé à la critique.
- * @param {number} props.qualiteVisuelle - La note de qualité visuelle.
- * @param {number} props.qualiteSonore - La note de qualité sonore.
- * @param {number} props.appréciation - La note d'appréciation.
- * @param {number} props.moyenne - La moyenne des notes.
+ * @param critique Les informations de la critique
  * @returns {JSX.Element} Le rendu du composant.
  */
 export default function Critique({...critique}){
