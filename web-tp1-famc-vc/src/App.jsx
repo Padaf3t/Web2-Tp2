@@ -216,7 +216,7 @@ function App() {
                            isShowingCritique={isShowingCritique}
                            produitEnModification={produitEnModification}/>
 
-            //Vérifie s'il y a une erreur dans les requetes BD
+            {/*Vérifie s'il y a une erreur dans les requetes BD*/}
             {error.error === "none" ? (
                     isShowingProduit &&
                     <GestionnaireReferenceProduitsContext.Provider value={gestionnaireProduitsRef}>
@@ -259,7 +259,7 @@ function App() {
                         </SectionStatistique>
                     </GestionnaireReferenceStatistiquesContext.Provider>)
                 :
-                //Si erreur affiche message d'erreur
+                // Si erreur affiche message d'erreur
                 <Alert severity="error">
                     <Alert.Heading>Error</Alert.Heading>
                     <p>{error.message}</p>
