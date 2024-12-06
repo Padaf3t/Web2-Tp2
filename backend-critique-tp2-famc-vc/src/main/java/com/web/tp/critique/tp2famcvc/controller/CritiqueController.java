@@ -8,12 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -368,6 +367,13 @@ public class CritiqueController implements CommandLineRunner {
 
         List<Critique> critiquesAvecCeEidr = critiqueRepository.findAllByEidr(eidr);
         critiqueRepository.deleteAll(critiquesAvecCeEidr);
+    }
+
+    @ExceptionHandler(CritiqueInformationInvalidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    Error handleInvalidCritiqueInformation(CritiqueInformationInvalidException ex) {
+        return new Error(ex.getMessage().toString());
     }
 
 }
