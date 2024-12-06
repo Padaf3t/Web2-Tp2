@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -253,5 +254,18 @@ public class ProduitController implements CommandLineRunner {
                     .build());
             logger.info("****Le film 9 à été réinitialisé en BD***");
         }
+    }
+
+    @ExceptionHandler(ProduitNonTrouveException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    Error handleProduitNotFound(ProduitNonTrouveException ex) {
+        return new Error(ex.getMessage().toString());
+    }
+    @ExceptionHandler(ProduitInformationInvalidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    Error handleInvalidProduitInformation(ProduitInformationInvalidException ex) {
+        return new Error(ex.getMessage().toString());
     }
 }
